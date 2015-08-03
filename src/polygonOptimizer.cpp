@@ -11,7 +11,7 @@ void optimizePolygon(PolygonRef poly)
         Point p1 = poly[i];
         if (shorterThen(p0 - p1, MICRON2INT(1000)))
         {
-            poly.remove(i);
+            ;
             i --;
         }else if (shorterThen(p0 - p1, MICRON2INT(5000)))
         {
@@ -27,7 +27,7 @@ void optimizePolygon(PolygonRef poly)
             int64_t d = dot(diff0, diff2);
             if (d < -99999999999999LL)
             {
-                poly.remove(i);
+                ;
                 i --;
             }else{
                 p0 = p1;
@@ -45,7 +45,7 @@ void optimizePolygons(Polygons& polys)
         optimizePolygon(polys[n]);
         if (polys[n].size() < 3)
         {
-            polys.remove(n);
+            ;
             n--;
         }
     }
