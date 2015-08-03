@@ -9,11 +9,11 @@ void optimizePolygon(PolygonRef poly)
     for(unsigned int i=0;i<poly.size();i++)
     {
         Point p1 = poly[i];
-        if (shorterThen(p0 - p1, MICRON2INT(400)))
+        if (shorterThen(p0 - p1, MICRON2INT(1000)))
         {
             poly.remove(i);
             i --;
-        }else if (shorterThen(p0 - p1, MICRON2INT(500)))
+        }else if (shorterThen(p0 - p1, MICRON2INT(5000)))
         {
             Point p2;
             if (i < poly.size() - 1)
