@@ -7,7 +7,6 @@ namespace cura {
 void generateInsets(SliceLayerPart* part, int offset, int insetCount)
 {
     part->combBoundery = part->outline.offset(-offset);
-    optimizePolygons(part->combBoundery);
     if (insetCount == 0)
     {
         part->insets.push_back(part->outline);
