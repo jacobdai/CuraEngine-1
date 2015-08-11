@@ -52,7 +52,6 @@ void generateSkins(int layerNr, SliceVolumeStorage& storage, int extrusionWidth,
                 i -= 1;
             }
         }
-         optimizePolygons(part->skinOutline);
     }
 }
 
@@ -113,7 +112,6 @@ void generateSparse(int layerNr, SliceVolumeStorage& storage, int extrusionWidth
                 i -= 1;
             }
         }
-        optimizePolygons(result);
         part->sparseOutline = sparse.difference(result);
     }
 }
