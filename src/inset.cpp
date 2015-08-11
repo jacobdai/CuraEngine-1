@@ -17,7 +17,6 @@ void generateInsets(SliceLayerPart* part, int offset, int insetCount)
     {
         part->insets.push_back(Polygons());
         part->insets[i] = part->outline.offset(-offset * i - offset/2);
-        optimizePolygons(part->insets[i]);
         if (part->insets[i].size() < 1)
         {
             part->insets.pop_back();
