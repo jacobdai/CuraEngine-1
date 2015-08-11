@@ -9,7 +9,7 @@ void optimizePolygon(PolygonRef poly)
     for(unsigned int i=0;i<poly.size();i++)
     {
         Point p1 = poly[i];
-        if (shorterThen(p0 - p1, MICRON2INT(380)))
+        if (shorterThen(p0 - p1, MICRON2INT(10)))
         {
             poly.remove(i);
             i --;
