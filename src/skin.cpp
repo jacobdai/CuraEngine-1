@@ -45,7 +45,6 @@ void generateSkins(int layerNr, SliceVolumeStorage& storage, int extrusionWidth,
         double minAreaSize = (2 * M_PI * INT2MM(extrusionWidth) * INT2MM(extrusionWidth)) * 0.3;
         for(unsigned int i=0; i<part->skinOutline.size(); i++)
         {
-            optimizePolygons(part->skinOutline);
             double area = INT2MM(INT2MM(fabs(part->skinOutline[i].area())));
             if (area < minAreaSize) // Only create an up/down skin if the area is large enough. So you do not create tiny blobs of "trying to fill"
             {
@@ -53,6 +52,7 @@ void generateSkins(int layerNr, SliceVolumeStorage& storage, int extrusionWidth,
                 i -= 1;
             }
         }
+         optimizePolygons(part->skinOutline);
     }
 }
 
@@ -107,14 +107,13 @@ void generateSparse(int layerNr, SliceVolumeStorage& storage, int extrusionWidth
         for(unsigned int i=0; i<result.size(); i++)
         {
             double area = INT2MM(INT2MM(fabs(result[i].area())));
-            optimizePolygons(result);
             if (area < minAreaSize) /* Only create an up/down skin if the area is large enough. So you do not create tiny blobs of "trying to fill" */
             {
                 result.remove(i);
                 i -= 1;
             }
         }
-        
+        optimizePolygons(result);
         part->sparseOutline = sparse.difference(result);
     }
 }
