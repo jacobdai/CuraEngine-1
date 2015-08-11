@@ -107,6 +107,7 @@ void generateSparse(int layerNr, SliceVolumeStorage& storage, int extrusionWidth
         for(unsigned int i=0; i<result.size(); i++)
         {
             double area = INT2MM(INT2MM(fabs(result[i].area())));
+            optimizePolygons(result[i]);
             if (area < minAreaSize) /* Only create an up/down skin if the area is large enough. So you do not create tiny blobs of "trying to fill" */
             {
                 result.remove(i);
