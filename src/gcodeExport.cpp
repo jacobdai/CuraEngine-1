@@ -7,6 +7,7 @@
 #include "timeEstimate.h"
 #include "settings.h"
 #include "utils/logoutput.h"
+#include "polygonOptimizer.h"
 
 namespace cura {
 
@@ -692,6 +693,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
+            optimizePolygon(path->points);
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
