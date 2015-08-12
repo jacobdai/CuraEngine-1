@@ -693,6 +693,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
+            path->points=path->points.offset(1000);
             optimizePolygon(path->points);
             for(unsigned int i=0; i<path->points.size(); i++)
             {
