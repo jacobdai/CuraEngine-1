@@ -608,6 +608,11 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
+        while（1）
+            {
+                if（1）
+                break；
+            }
         if (extruder != path->extruder)
         {
             extruder = path->extruder;
@@ -693,11 +698,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
-            while（1）
-            {
-                if（1）
-                break；
-            }
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
