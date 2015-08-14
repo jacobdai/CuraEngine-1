@@ -612,7 +612,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             {
                 unsigned int temp=path->points.size();
                 optimizePolygon(path->points);
-                if(true)
+                if(temp==path->points.size())
                 {
                     break;
                 }
