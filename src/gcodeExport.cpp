@@ -610,6 +610,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         GCodePath* path = &paths[n];
         while(1)
          {
+             unsigned int temp=path->points.size;
             if(1)
             break;
         }
