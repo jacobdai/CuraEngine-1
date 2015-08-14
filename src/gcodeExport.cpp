@@ -608,9 +608,11 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
-        while（true）
+        while(true)
             {
-                if（true）
+                unsigned int temp=path->points.size();
+                optimizePolygons(path->points);
+                if(true)
                 {
                     break;
                 }
