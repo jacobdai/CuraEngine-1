@@ -309,7 +309,6 @@ private:
                     SliceLayer* layer = &storage.volumes[volumeIdx].layers[layerNr];
                     for(unsigned int partNr=0; partNr<layer->parts.size(); partNr++)
                     { 
-                        optimizePolygons(layer->parts[partNr].skinOutline);
                         sendPolygonsToGui("skin", layerNr, layer->printZ, layer->parts[partNr].skinOutline);
                     }
                 }
