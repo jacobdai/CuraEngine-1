@@ -307,7 +307,10 @@ private:
 
                     SliceLayer* layer = &storage.volumes[volumeIdx].layers[layerNr];
                     for(unsigned int partNr=0; partNr<layer->parts.size(); partNr++)
+                    { 
+                        optimizePolygon(layer->parts[partNr].skinOutline);
                         sendPolygonsToGui("skin", layerNr, layer->printZ, layer->parts[partNr].skinOutline);
+                    }
                 }
             }
             cura::logProgress("skin",layerNr+1,totalLayers);
