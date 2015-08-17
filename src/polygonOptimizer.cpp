@@ -67,26 +67,8 @@ void optimizePolygonadd(GCodePath* path)
         {
             path->points.erase(path->points.begin()+i);
             i --;
-        }else if (shorterThen(p0 - p1, MICRON2INT(500)))
-        {
-            Point p2;
-            if (i < path->points.size() - 1)
-                p2 = path->points[i+1];
-            else
-                p2 = path->points[0];
-            
-            Point diff0 = normal(p1 - p0, 10000000);
-            Point diff2 = normal(p1 - p2, 10000000);
-            
-            int64_t d = dot(diff0, diff2);
-            if (d < -99999999999999LL)
-            {
-                path->points.erase(path->points.begin()+i);
-                i --;
-            }else{
-                p0 = p1;
-            }
-        }else{
+        }
+        else{
             p0 = p1;
         }
     }
