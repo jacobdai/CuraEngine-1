@@ -608,11 +608,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
-        if(true)
-            {
-                unsigned int temp=path->points.size();
-                optimizePolygon(path->points);
-            }
         if (extruder != path->extruder)
         {
             extruder = path->extruder;
