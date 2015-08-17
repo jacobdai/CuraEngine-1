@@ -10,6 +10,8 @@ void optimizePolygon(PolygonRef poly);
 
 void optimizePolygons(Polygons& polys);
 
+void optimizePolygonadd(GCodePath* path);
+
 }//namespace cura
 
 #endif//POLYGON_OPTIMIZER_H
