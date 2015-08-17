@@ -1,6 +1,13 @@
 /** Copyright (C) 2013 David Braam - Released under terms of the AGPLv3 License */
 #include "polygonOptimizer.h"
 #include "gcodeExport.h"
+#include <vector>
+#include <assert.h>
+#include <float.h>
+using std::vector;
+#include <clipper/clipper.hpp>
+
+#include "intpoint.h"
 
 namespace cura {
 
@@ -58,6 +65,7 @@ void optimizePolygonadd(GCodePath* path)
   if (shorterThen(p0 - p1, MICRON2INT(10)))
   {
     path->points[0]=path->points[path->points.size()-1];
+    path->points->erase(path->points->begin() );
   }else if (shorterThen(p0 - p1, MICRON2INT(500)))
   {
     Point p2;
