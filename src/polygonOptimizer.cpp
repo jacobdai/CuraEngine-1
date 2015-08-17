@@ -75,7 +75,7 @@ void optimizePolygonadd(GCodePath* path)
                 path->points[0]=path->points[path->points.size()-1];
             }
   }
- Point p0 = path->points[0];
+p0 = path->points[0];
   for(unsigned int i=1;i<path->points.size();i++)
     {
         Point p1 = path->points[i];
