@@ -3,6 +3,7 @@
 #define POLYGON_OPTIMIZER_H
 
 #include "utils/polygon.h"
+#include "gcodeExport.h"
 
 namespace cura {
 
