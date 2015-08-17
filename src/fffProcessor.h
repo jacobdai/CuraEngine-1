@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include "utils/socket.h"
+#include "polygonOptimizer.h"
 
 #define GUI_CMD_REQUEST_MESH 0x01
 #define GUI_CMD_SEND_POLYGONS 0x02
