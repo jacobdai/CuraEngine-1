@@ -7,7 +7,6 @@
 using std::vector;
 #include <clipper/clipper.hpp>
 
-#include "intpoint.h"
 
 namespace cura {
 
