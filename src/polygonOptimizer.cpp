@@ -70,10 +70,10 @@ void optimizePolygonadd(GCodePath* path)
         }else if (shorterThen(p0 - p1, MICRON2INT(500)))
         {
             Point p2;
-            if (i < poly.size() - 1)
-                p2 = poly[i+1];
+            if (i < path->points.size() - 1)
+                p2 = path->points[i+1];
             else
-                p2 = poly[0];
+                p2 = path->points[0];
             
             Point diff0 = normal(p1 - p0, 10000000);
             Point diff2 = normal(p1 - p2, 10000000);
