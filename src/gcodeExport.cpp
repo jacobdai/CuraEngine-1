@@ -616,7 +616,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             while(z < paths.size()&& paths[z].points.size() == 1&&path->config != &travelConfig )
             {
                Point p6 = paths[z].points[0];
-               if(shorterThen(p5 - p6, MICRON2INT(300)))
+               if(shorterThen(p5 - p6, MICRON2INT(100)))
                {
                    paths.erase(paths.begin()+z);
                    z--;
