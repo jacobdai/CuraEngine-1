@@ -669,7 +669,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 p0 = paths[i].points[0];
                 i ++;
             }
-            if (paths[i-1].config == &travelConfig)
+            if (paths[i-1].config != &travelConfig)
                 i --;
             if (i > n + 2)
             {
