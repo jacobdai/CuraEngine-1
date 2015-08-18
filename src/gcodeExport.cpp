@@ -605,6 +605,28 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     GCodePathConfig* lastConfig = nullptr;
     int extruder = gcode.getExtruderNr();
 
+    for(unsigned int y=0; y<paths.size(); y++)
+    {
+        GCodePath* path = &paths[y];
+        if(path->points.size()==1)
+        {
+            Point p5 = path->points[0];
+            unsigned int z = y + 1;
+            while(z < paths.size()&& paths[z].points.size() == 1 )
+            {
+               Point p6 = paths[z].points[0];
+               if(shorterThen(p5 - p6, MICRON2INT(300)))
+               {
+                   paths.erase(paths.begin()+z);
+                   z--;
+               }else
+               {
+                p5 = p6
+               }
+                z ++;
+            }
+        }
+    }
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
@@ -693,10 +715,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
-            if (path->points.size() != 1) 
-            {
-                optimizePolygonadd(path);
-            }
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
