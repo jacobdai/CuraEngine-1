@@ -621,7 +621,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                    z--;
                }else
                {
-                p5 = p6
+                p5 = p6;
                }
                 z ++;
             }
