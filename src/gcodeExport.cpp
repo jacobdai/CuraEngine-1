@@ -659,7 +659,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             speed = speed * extrudeSpeedFactor / 100;
         else
             speed = speed * travelSpeedFactor / 100;
-        if (path->points.size() == 1 && path->config != &travelConfig && shorterThen(gcode.getPositionXY() - path->points[0], path->config->lineWidth * 2))
+        if (path->points.size() == 1 && path->config == &travelConfig && shorterThen(gcode.getPositionXY() - path->points[0], path->config->lineWidth * 2))
         {
             //Check for lots of small moves and combine them into one large line
             Point p0 = path->points[0];
@@ -669,7 +669,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 p0 = paths[i].points[0];
                 i ++;
             }
-            if (paths[i-1].config != &travelConfig)
+            if (paths[i-1].config == &travelConfig)
                 i --;
             if (i > n + 2)
             {
