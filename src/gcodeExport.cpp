@@ -605,7 +605,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     GCodePathConfig* lastConfig = nullptr;
     int extruder = gcode.getExtruderNr();
 
-    for(unsigned int y=0; y<paths.size(); y++)
+   unsigned int y=0;
+    while(y<paths.size())
     {
         GCodePath* path = &paths[y];
         if(path->points.size()==1)
@@ -625,6 +626,10 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                }
                 z ++;
             }
+		y=z;
+		}else
+        {
+            y++;
         }
     }
     for(unsigned int n=0; n<paths.size(); n++)
