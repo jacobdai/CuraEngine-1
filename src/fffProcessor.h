@@ -514,7 +514,7 @@ private:
             gcodeLayer.writeGCode(config.coolHeadLift > 0, static_cast<int>(layerNr) > 0 ? config.layerThickness : config.initialLayerThickness);
         }
 
-        cura::log("Wrote layers in %5.2fs.\n", timeKeeper.restart());
+        cura::log("Wrote layers in %5.2fs %i.\n", timeKeeper.restart(), storage.volumes.size);
         gcode.tellFileSize();
         gcode.writeFanCommand(0);
 
