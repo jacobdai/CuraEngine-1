@@ -196,7 +196,7 @@ private:
                 sendPolygonsToGui("openoutline", layerNr, slicer->layers[layerNr].z, slicer->layers[layerNr].openPolygons);
             }
         }
-        cura::log("Sliced model in %5.3fs\n", timeKeeper.restart());
+        cura::log("Sliced model in %5.3fs %i \n", timeKeeper.restart(),optimizedModel->volumes.size());
 
         cura::log("Generating support map...\n");
         generateSupportGrid(storage.support, optimizedModel, config.supportAngle, config.supportEverywhere > 0, config.supportXYDistance, config.supportZDistance);
