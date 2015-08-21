@@ -618,7 +618,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	 if(y1>1)
         	  {
         	   Point p5=paths[y3].points[y1-2];
-        	   if(shorterThen(p5 - p4, MICRON2INT(200)))
+        	   if(shorterThen(p5 - p4, MICRON2INT(300)))
         	    {
         	    	optimizeacuteangle(p3,p4,p5);
         	    }
@@ -626,7 +626,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  else if(y3>0)
         	   {
         	      Point p5=paths[y3-1].points[paths[y3-1].points.size()-1];
-        	      if(shorterThen(p5 - p4, MICRON2INT(200)))
+        	      if(shorterThen(p5 - p4, MICRON2INT(300)))
         	        {
         	    	  optimizeacuteangle(p3,p4,p5);
         	        }
@@ -640,7 +640,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  	if(paths[y3-1].points.size()>1)
         	  	{
         	   	 Point p5=paths[y3-1].points[paths[y3-1].points.size()-2];
-        	     	 if(shorterThen(p5 - p4, MICRON2INT(200)))
+        	     	 if(shorterThen(p5 - p4, MICRON2INT(300)))
         	          {
         	         	optimizeacuteangle(p3,p4,p5);
         	          }
@@ -648,7 +648,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  	else if(y3>2)
         	  	{
         	  	 Point p5=paths[y3-2].points[paths[y3-2].points.size()-1];
-        	     	 if(shorterThen(p5 - p4, MICRON2INT(200)))
+        	     	 if(shorterThen(p5 - p4, MICRON2INT(300)))
         	            {
         	         	optimizeacuteangle(p3,p4,p5);
         	            }
