@@ -623,7 +623,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	    	optimizeacuteangle(p3,p4,p5);
         	    }
         	  }
-        	  if(y3>0)
+        	  else if(y3>0)
         	   {
         	      Point p5=paths[y3-1].points[paths[y3-1].points.size()-1];
         	      if(shorterThen(p5 - p4, MICRON2INT(200)))
@@ -633,7 +633,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	   }
         	}
               }
-             if(y3>0)
+             else if(y3>0)
         	  {
         	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	      {
@@ -645,7 +645,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	         	optimizeacuteangle(p3,p4,p5);
         	          }
         	  	}
-        	  	if(y3>2)
+        	  	else if(y3>2)
         	  	{
         	  	 Point p5=paths[y3-2].points[paths[y3-2].points.size()-1];
         	     	 if(shorterThen(p5 - p4, MICRON2INT(200)))
