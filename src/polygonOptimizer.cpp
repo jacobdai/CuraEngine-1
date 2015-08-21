@@ -74,6 +74,68 @@ void optimizePolygonadd(GCodePath* path)
     }
 }
 
-
+void optimizeacuteangle(Point p0,Point p1,Point p2)
+{
+   if(p1.x>=p0.x&&p1.y>=p0.y&&p0!=p1)
+   {
+     if(p2.x<p1.x&&p2.y>=p1.y)
+     {
+       p2.x=p1.x;
+     }
+     if(p2.x<p1.x&&p2.y<p1.y)
+     {
+       p2=p1;
+     }
+     if(p2.x>=p1.x&&p2.y<p1.y)
+     {
+       p2.y=p1.y;
+     }
+   }
+   if(p1.x>=p0.x&&p1.y<=p0.y&&p0!=p1)
+   {
+     if(p2.x>=p1.x&&p2.y>p1.y)
+     {
+       p2.y=p1.y;
+     }
+     if(p2.x<p1.x&&p2.y<=p1.y)
+     {
+       p2.x=p1.x;
+     }
+     if(p2.x<p1.x&&p2.y>p1.y)
+     {
+       p2=p1;
+     }
+   }
+   if(p1.x<=p0.x&&p1.y<=p0.y&&p0!=p1)
+   {
+     if(p2.x>p1.x&&p2.y>p1.y)
+     {
+       p2=p1;
+     }
+     if(p2.x>p1.x&&p2.y<=p1.y)
+     {
+       p2.x=p1.x;
+     }
+     if(p2.x<=p1.x&&p2.y>p1.y)
+     {
+       p2.y=p1.y;
+     }
+   }
+   if(p1.x<=p0.x&&p1.y>=p0.y&&p0!=p1)
+   {
+     if(p2.x>p1.x&&p2.y>=p1.y)
+     {
+       p2.x=p1.x;
+     }
+     if(p2.x>p1.x&&p2.y<p1.y)
+     {
+       p2=p1;
+     }
+     if(p2.x<=p1.x&&p2.y<p1.y)
+     {
+       p2.y=p1.y;
+     }
+   }
+}
 
 }//namespace cura
