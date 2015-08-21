@@ -610,10 +610,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     {
         for(unsigned int y1=0;y1<paths[x1]->points.size();y1++)
         {
-        	Point p3=paths[x1].points[y1];
-        	if(y1>0)
+            Point p3=paths[x1].points[y1];
+            if(y1>0)
+              {
+        	Point p4=paths[x1].points[y1-1];
+        	if(shorterThen(p5 - p4, MICRON2INT(200)))
         	{
-        	 Point p4=paths[x1].points[y1-1];
         	 if(y1>1)
         	  {
         	   Point p5=paths[x1].points[y1-2];
@@ -625,21 +627,23 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	      optimizeacuteangle(p3,p4,p5);
         	   }
         	}
-        	if(x1>0)
+              }
+             if(x1>0)
         	  {
-        	  	Point p4=paths[x1-1].points[path[x1-1].points.size()-1];
+        	     Point p4=paths[x1-1].points[path[x1-1].points.size()-1];
+        	     if(shorterThen(p5 - p4, MICRON2INT(200)))
+        	      {
         	  	if(paths[x1-1].points.size()>1)
         	  	{
-        	  	Point p5=paths[x1-1].points[path[x1-1].points.size()-2];
-        	  	optimizeacuteangle(p3,p4,p5);
+        	   	 Point p5=paths[x1-1].points[path[x1-1].points.size()-2];
+        	     	 optimizeacuteangle(p3,p4,p5);
         	  	}
         	  	if(x1>2)
         	  	{
-        	  	  Point p5=paths[x1-2].points[path[x1-2].points.size()-1];
-        	  	  optimizeacuteangle(p3,p4,p5);
+        	  	 Point p5=paths[x1-2].points[path[x1-2].points.size()-1];
+        	     	 optimizeacuteangle(p3,p4,p5);
         	       	}
-        	  	
-        		
+        	      }
         	  }
         }
     } 
@@ -663,13 +667,13 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                {
                 p6 = p7;
                }
-                z2 ++;
+                z2++;
             }
 		y2=z2;
-		}else
-        {
+        }else
+         {
             y2++;
-        }
+         }
     }
     
     for(unsigned int n=0; n<paths.size(); n++)
