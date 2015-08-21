@@ -76,62 +76,62 @@ void optimizePolygonadd(GCodePath* path)
 
 void optimizeacuteangle(Point p0,Point p1,Point p2)
 {
-   if(p1.x>=p0.x&&p1.y>=p0.y&&p0!=p1)
+   if(p1.X>=p0.X&&p1.Y>=p0.Y)
    {
-     if(p2.x<p1.x&&p2.y>=p1.y)
+     if(p2.X<p1.X&&p2.Y>=p1.Y)
      {
-       p2.x=p1.x;
+       p2.X=p1.X;
      }
-     if(p2.x<p1.x&&p2.y<p1.y)
+     if(p2.X<p1.X&&p2.Y<p1.Y)
      {
        p2=p1;
      }
-     if(p2.x>=p1.x&&p2.y<p1.y)
+     if(p2.X>=p1.X&&p2.Y<p1.Y)
      {
-       p2.y=p1.y;
+       p2.Y=p1.Y;
      }
    }
-   if(p1.x>=p0.x&&p1.y<=p0.y&&p0!=p1)
+   if(p1.X>=p0.X&&p1.Y<=p0.Y)
    {
-     if(p2.x>=p1.x&&p2.y>p1.y)
+     if(p2.X>=p1.X&&p2.Y>p1.Y)
      {
-       p2.y=p1.y;
+       p2.Y=p1.Y;
      }
-     if(p2.x<p1.x&&p2.y<=p1.y)
+     if(p2.X<p1.X&&p2.Y<=p1.Y)
      {
-       p2.x=p1.x;
+       p2.X=p1.X;
      }
-     if(p2.x<p1.x&&p2.y>p1.y)
+     if(p2.X<p1.X&&p2.Y>p1.Y)
      {
        p2=p1;
      }
    }
-   if(p1.x<=p0.x&&p1.y<=p0.y&&p0!=p1)
+   if(p1.X<=p0.X&&p1.Y<=p0.Y)
    {
-     if(p2.x>p1.x&&p2.y>p1.y)
+     if(p2.X>p1.X&&p2.Y>p1.Y)
      {
        p2=p1;
      }
-     if(p2.x>p1.x&&p2.y<=p1.y)
+     if(p2.X>p1.X&&p2.Y<=p1.Y)
      {
-       p2.x=p1.x;
+       p2.X=p1.X;
      }
-     if(p2.x<=p1.x&&p2.y>p1.y)
+     if(p2.X<=p1.X&&p2.Y>p1.Y)
      {
-       p2.y=p1.y;
+       p2.Y=p1.Y;
      }
    }
-   if(p1.x<=p0.x&&p1.y>=p0.y&&p0!=p1)
+   if(p1.X<=p0.X&&p1.Y>=p0.Y)
    {
-     if(p2.x>p1.x&&p2.y>=p1.y)
+     if(p2.X>p1.X&&p2.Y>=p1.Y)
      {
-       p2.x=p1.x;
+       p2.X=p1.X;
      }
-     if(p2.x>p1.x&&p2.y<p1.y)
+     if(p2.X>p1.X&&p2.Y<p1.Y)
      {
        p2=p1;
      }
-     if(p2.x<=p1.x&&p2.y<p1.y)
+     if(p2.X<=p1.X&&p2.Y<p1.Y)
      {
        p2.y=p1.y;
      }
