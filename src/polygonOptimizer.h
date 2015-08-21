@@ -13,6 +13,8 @@ void optimizePolygons(Polygons& polys);
 
 void optimizePolygonadd(GCodePath* path);
 
+void optimizeacuteangle(Point p0,Point p1,Point p2);
+
 }//namespace cura
 
 #endif//POLYGON_OPTIMIZER_H
