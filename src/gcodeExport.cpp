@@ -614,7 +614,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             if(y1>0)
               {
         	Point p4=paths[z1].points[y1-1];
-        	if(shorterThen(p5 - p4, MICRON2INT(200)))
         	{
         	 if(y1>1)
         	  {
