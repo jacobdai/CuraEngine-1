@@ -650,18 +650,18 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         GCodePath* path = &paths[y2];
         if(path->points.size()==1)
         {
-            Point p5 = path->points[0];
+            Point p6 = path->points[0];
             unsigned int z2 = y2 + 1;
             while(z2 < paths.size()&& paths[z2].points.size() == 1&&path->config != &travelConfig )
             {
-               Point p6 = paths[z2].points[0];
-               if(shorterThen(p5 - p6, MICRON2INT(100)))
+               Point p7 = paths[z2].points[0];
+               if(shorterThen(p6 - p7, MICRON2INT(100)))
                {
                    paths.erase(paths.begin()+z2);
                    z2--;
                }else
                {
-                p5 = p6;
+                p6 = p7;
                }
                 z2 ++;
             }
