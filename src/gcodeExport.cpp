@@ -605,31 +605,70 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     GCodePathConfig* lastConfig = nullptr;
     int extruder = gcode.getExtruderNr();
 
-   unsigned int y=0;
-    while(y<paths.size())
+   unsigned int x1=0;
+   for(unsigned int x1=0;x1<paths.size();x1++)
     {
-        GCodePath* path = &paths[y];
+        for(unsigned int y1=0;y1<paths[x1]->points.size();y1++)
+        {
+        	Point p3=paths[x1].points[y1];
+        	if(y1>0)
+        	{
+        	 Point p4=paths[x1].points[y1-1];
+        	 if(y1>1)
+        	  {
+        	   Point p5=paths[x1].points[y1-2];
+        	   optimizeacuteangle(p3,p4,p5);
+        	  }
+        	  if(x1>0)
+        	   {
+        	      Point p5=paths[x1-1].points[paths[x1-1].points.size()-1];
+        	      optimizeacuteangle(p3,p4,p5);
+        	   }
+        	}
+        	if(x1>0)
+        	  {
+        	  	Point p4=paths[x1-1].points[path[x1-1].points.size()-1];
+        	  	if(paths[x1-1].points.size()>1)
+        	  	{
+        	  	Point p5=paths[x1-1].points[path[x1-1].points.size()-2];
+        	  	optimizeacuteangle(p3,p4,p5);
+        	  	}
+        	  	if(x1>2)
+        	  	{
+        	  	  Point p5=paths[x1-2].points[path[x1-2].points.size()-1];
+        	  	  optimizeacuteangle(p3,p4,p5);
+        	       	}
+        	  	
+        		
+        	  }
+        }
+    } 
+    
+    unsigned int y2=0;
+    while(y2<paths.size())
+    {
+        GCodePath* path = &paths[y2];
         if(path->points.size()==1)
         {
             Point p5 = path->points[0];
-            unsigned int z = y + 1;
-            while(z < paths.size()&& paths[z].points.size() == 1&&path->config != &travelConfig )
+            unsigned int z2 = y2 + 1;
+            while(z2 < paths.size()&& paths[z2].points.size() == 1&&path->config != &travelConfig )
             {
-               Point p6 = paths[z].points[0];
+               Point p6 = paths[z2].points[0];
                if(shorterThen(p5 - p6, MICRON2INT(100)))
                {
-                   paths.erase(paths.begin()+z);
-                   z--;
+                   paths.erase(paths.begin()+z2);
+                   z2--;
                }else
                {
                 p5 = p6;
                }
-                z ++;
+                z2 ++;
             }
-		y=z;
+		y2=z2;
 		}else
         {
-            y++;
+            y2++;
         }
     }
     
