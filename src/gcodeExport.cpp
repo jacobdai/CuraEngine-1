@@ -605,27 +605,27 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     GCodePathConfig* lastConfig = nullptr;
     int extruder = gcode.getExtruderNr();
 
-   unsigned int z1=0;
-   for(unsigned int z1=0;z1<paths.size();z1++)
+   unsigned int y3=0;
+   for(unsigned int y3=0;y3<paths.size();y3++)
     {
-        for(unsigned int y1=0;y1<paths[z1].points.size();y1++)
+        for(unsigned int y1=0;y1<paths[y3].points.size();y1++)
         {
-            Point p3=paths[z1].points[y1];
+            Point p3=paths[y3].points[y1];
             if(y1>0)
               {
-        	Point p4=paths[z1].points[y1-1];
+        	Point p4=paths[y3].points[y1-1];
         	{
         	 if(y1>1)
         	  {
-        	   Point p5=paths[z1].points[y1-2];
+        	   Point p5=paths[y3].points[y1-2];
         	   if(shorterThen(p5 - p4, MICRON2INT(200)))
         	    {
         	    	optimizeacuteangle(p3,p4,p5);
         	    }
         	  }
-        	  if(z1>0)
+        	  if(y3>0)
         	   {
-        	      Point p5=paths[z1-1].points[paths[z1-1].points.size()-1];
+        	      Point p5=paths[y3-1].points[paths[y3-1].points.size()-1];
         	      if(shorterThen(p5 - p4, MICRON2INT(200)))
         	        {
         	    	  optimizeacuteangle(p3,p4,p5);
@@ -633,21 +633,21 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	   }
         	}
               }
-             if(z1>0)
+             if(y3>0)
         	  {
-        	     Point p4=paths[z1-1].points[paths[z1-1].points.size()-1];
+        	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	      {
-        	  	if(paths[z1-1].points.size()>1)
+        	  	if(paths[y3-1].points.size()>1)
         	  	{
-        	   	 Point p5=paths[z1-1].points[paths[z1-1].points.size()-2];
+        	   	 Point p5=paths[y3-1].points[paths[y3-1].points.size()-2];
         	     	 if(shorterThen(p5 - p4, MICRON2INT(200)))
         	          {
         	         	optimizeacuteangle(p3,p4,p5);
         	          }
         	  	}
-        	  	if(z1>2)
+        	  	if(y3>2)
         	  	{
-        	  	 Point p5=paths[z1-2].points[paths[z1-2].points.size()-1];
+        	  	 Point p5=paths[y3-2].points[paths[y3-2].points.size()-1];
         	     	 if(shorterThen(p5 - p4, MICRON2INT(200)))
         	            {
         	         	optimizeacuteangle(p3,p4,p5);
