@@ -133,7 +133,7 @@ void optimizeacuteangle(Point p0,Point p1,Point p2)
      }
      if(p2.X<=p1.X&&p2.Y<p1.Y)
      {
-       p2.y=p1.y;
+       p2.Y=p1.Y;
      }
    }
 }
