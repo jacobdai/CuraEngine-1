@@ -220,9 +220,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
     {
         //For Bits From Bytes machines, we need to handle this completely differently. As they do not use E values but RPM values.
         float fspeed = speed * 60;
-        float rpm = (extrusionPerMM * double(lineWidth) / 1000.0) * speed * 60;
-        const float mm_per_rpm = 4.0; //All BFB machines have 4mm per RPM extrusion.
-        rpm /= mm_per_rpm;
+        float rpm = speed/5;
         if (rpm > 0)
         {
             if (isRetracted)
