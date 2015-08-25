@@ -221,6 +221,8 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         //For Bits From Bytes machines, we need to handle this completely differently. As they do not use E values but RPM values.
         float fspeed = speed * 60;
         float rpm = speed/5;
+        if(rpm<=0)
+        rpm=1.0;
         if (rpm > 0)
         {
             if (isRetracted)
