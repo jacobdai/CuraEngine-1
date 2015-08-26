@@ -223,7 +223,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         float rpm = (extrusionPerMM * double(lineWidth) / 1000.0) * speed * 60;
         const float mm_per_rpm = 100.0; //All BFB machines have 4mm per RPM extrusion.
         rpm /= mm_per_rpm;
-        rpm = roundf(rpm);
+        int rpmint = roundf(rpm);
         if (rpm > 0)
         {
             if (isRetracted)
@@ -231,7 +231,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                 if (currentSpeed != int(rpm * 10))
                 {
                     //fprintf(f, "; %f e-per-mm %d mm-width %d mm/s\n", extrusionPerMM, lineWidth, speed);
-                    fprintf(f, "M108 S%0.1f\r\n", rpm);
+                    fprintf(f, "M108 S%0.1f\r\n", rpmint);
                     currentSpeed = int(rpm * 10);
                 }
                 fprintf(f, "M%d01\r\n", extruderNr + 1);
