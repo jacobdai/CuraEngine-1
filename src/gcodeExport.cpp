@@ -231,7 +231,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                 if (currentSpeed != int(rpm * 10))
                 {
                     //fprintf(f, "; %f e-per-mm %d mm-width %d mm/s\n", extrusionPerMM, lineWidth, speed);
-                    fprintf(f, "M108 S%0.1f\r\n", rpmint);
+                    fprintf(f, "M108 S%i\r\n", rpmint);
                     currentSpeed = int(rpm * 10);
                 }
                 fprintf(f, "M%d01\r\n", extruderNr + 1);
