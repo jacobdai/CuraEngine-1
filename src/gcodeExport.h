@@ -19,6 +19,7 @@ class GCodeExport
 private:
     FILE* f;
     double extrusionAmount;
+    int extrusionangle;
     double extrusionPerMM;
     double retractionAmount;
     double retractionAmountPrime;
