@@ -277,7 +277,6 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                 isRetracted = false;
             }
             extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff);
-            int extrusionangle = vSizeMM(diff) / 300;
             fprintf(f, "G1");
         }else{
             fprintf(f, "G0");
@@ -293,7 +292,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         if (zPos != currentPosition.z)
             fprintf(f, " Z%0.3f", INT2MM(zPos));
         if (lineWidth != 0)
-            fprintf(f, " %c%i", extruderCharacter[extruderNr],  extrusionangle);
+            fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], extrusionAmount);
         fprintf(f, "\n");
     }
     
