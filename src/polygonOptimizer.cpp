@@ -137,7 +137,7 @@ void optimizeacuteangle(Point p0,Point p1,Point p2)
      }
    }
 }
-void optimizeacuteanglepoint(Point p3,Point p4,Point p5)
+void optimizeacuteanglepoint(GCodePath* path,int a,Point p3,Point p4,Point p5)
 {
 
 if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p1.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
@@ -170,7 +170,7 @@ if(((p4.X>=p3.X)&&(p4.Y<=p3.Y))&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4
 	                             insertp.y=p4.y;
                                }
         	     }
-
+path->points.insert(path->points.begin()+a,insertp);
 }
 
 }//namespace cura
