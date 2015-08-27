@@ -648,7 +648,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                            insertp.Y=p4.Y;
                                }
         	      }
-        	      
+        	     paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
         	  }
         	  else if(y3>0)
         	   {
@@ -683,7 +683,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                             insertp.Y=p4.Y;
                                }
         	          }
-                   paths[y3].points.insert(paths[y3]->points.begin()+y1,insertp);
+                   paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
                  }
 
              else if(y3>0)
@@ -722,7 +722,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                             insertp.Y=p4.Y;
                                }
         	            }
-                          paths[y3].points.insert(paths[y3]->points.begin()+y1,insertp);
+                          paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
                          }
         	  	else if(y3>1)
         	  	{
@@ -757,7 +757,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                             insertp.Y=p4.Y;
                                }
         	             }
-                          paths[y3].points.insert(paths[y3]->points.begin()+y1,insertp);
+                          paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
         	       	}
         	      }
         	  }
