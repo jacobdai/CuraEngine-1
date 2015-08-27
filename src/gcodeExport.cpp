@@ -632,6 +632,20 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                      paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
                         }
                      }
+                     else if(((p4.X>=p3.X)&&(p4.Y<=p3.Y)&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y)))
+        	     {
+        	     	 if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
+                             {
+	                           insertp.X=p4.X;
+	                           insertp.Y=(p4.Y+p5.Y)*0.5;
+                              }
+                      else
+                              {
+	                            insertp.X=(p4.X+p5.X)*0.5;
+	                            insertp.Y=p4.Y;
+                              }
+                              paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
+        	      }
         	  }
               }
         }
