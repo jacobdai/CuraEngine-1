@@ -617,7 +617,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  if(y1>1)
         	  {
         	   Point p3=paths[y3].points[y1-2];
-        	   if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y)))
+        	   if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                      {
                     if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
                        {
