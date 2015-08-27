@@ -642,7 +642,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                               {
 	                            insertp.X=(p4.X+p5.X)*0.5;
 	                            insertp.Y=p4.Y;
-                               }
+                              }
         	      }
         	     paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
         	  }
@@ -747,10 +747,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  }
         }
     }
-    
-    
-
-    
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
@@ -847,6 +843,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             }
         }
     }
+}
     
     gcode.updateTotalPrintTime();
     if (liftHeadIfNeeded && extraTime > 0.0)
@@ -858,5 +855,5 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         gcode.writeMove(gcode.getPositionXY() - Point(-MM2INT(20.0), 0), travelConfig.speed, 0);
         gcode.writeDelay(extraTime);
     }
-}
+
 //namespace cura
