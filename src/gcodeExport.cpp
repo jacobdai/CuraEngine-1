@@ -625,6 +625,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                      insertp.Y=(p4.Y+p5.Y)*0.5;
         	     paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
                        }
+                       else
+                        {
+	                      insertp.X=(p4.X+p5.X)*0.5;
+	                      insertp.Y=p4.Y;
+	                      paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
+                        }
                      }
         	  }
               }
