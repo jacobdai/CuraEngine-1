@@ -633,7 +633,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 	                      insertp.y=p4.y;
                        }
         	     }
-               if(((p4.x>=p3.x)&&(p4.y<=p3.y))&&(p4.x>=p5.x)&&(p4.y<=p5.y))||((p4.x<=p3.x)&&(p4.y>=p3.y)&&(p4.x<=p5.x)&&(p4.y>=p5.y)))
+               if(((p4.x>=p3.x)&&(p4.y<=p3.y)&&(p4.x>=p5.x)&&(p4.y<=p5.y))||((p4.x<=p3.x)&&(p4.y>=p3.y)&&(p4.x<=p5.x)&&(p4.y>=p5.y)))
         	     {
         	     	 if(((p4.x-p3.x)*(p4.y-p5.y))<=((p4.x-p5.x)*(p4.y-p3.y)))
                              {
