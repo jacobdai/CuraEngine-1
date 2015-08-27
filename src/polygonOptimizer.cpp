@@ -137,5 +137,40 @@ void optimizeacuteangle(Point p0,Point p1,Point p2)
      }
    }
 }
+void optimizeacuteanglepoint(Point p3,Point p4,Point p5)
+{
+
+if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p1.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
+                 {
+                          if(((p4.x-p3.x)*(p4.y-p5.y))>=((p4.x-p5.x)*(p4.y-p3.y)))
+                               {
+                                Point insertp;
+	                              insertp.x=p4.x;
+	                              insertp.y=(p4.y+p5.y)*0.5;
+                               }
+                          else
+                               {
+                          	   Point insertp;
+	                             insertp.x=(p4.x+p5.x)*0.5;
+	                             insertp.y=p4.y;
+                               }
+        	     }
+if(((p4.X>=p3.X)&&(p4.Y<=p3.Y))&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y))))
+        	     {
+        	     	 if(((p4.x-p3.x)*(p4.y-p5.y))<=((p4.x-p5.x)*(p4.y-p3.y)))
+                               {
+                               Point insertp;
+	                             insertp.x=p4.x;
+	                             insertp.y=(p4.y+p5.y)*0.5;
+                               }
+                          else
+                               {
+                          	   Point insertp;
+	                             insertp.x=(p4.x+p5.x)*0.5;
+	                             insertp.y=p4.y;
+                               }
+        	     }
+
+}
 
 }//namespace cura
