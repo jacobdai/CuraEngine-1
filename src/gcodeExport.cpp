@@ -619,14 +619,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	 if(y1>1)
         	  {
         	   Point p3=paths[y3].points[y1-2];
-        	   optimizeacuteanglepoint(p3,p4,p5);
-        	   path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	   optimizeacuteanglepoint(paths[y3],y1,p3,p4,p5);
         	  }
         	  else if(y3>0)
         	   {
         	      Point p3=paths[y3-1].points[paths[y3-1].points.size()-1];
-        	      optimizeacuteanglepoint(p3,p4,p5);
-        	      path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	      optimizeacuteanglepoint(paths[y3],y1,p3,p4,p5);
         	   }
         	}
               }
@@ -637,14 +635,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  	if(paths[y3-1].points.size()>1)
         	  	{
         	   	  Point p3=paths[y3-1].points[paths[y3-1].points.size()-2];
-        	     	  optimizeacuteanglepoint(p3,p4,p5);
-        	          path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	      optimizeacuteanglepoint(paths[y3],y1,p3,p4,p5);
         	  	}
         	  	else if(y3>2)
         	  	{
         	  	  Point p3=paths[y3-2].points[paths[y3-2].points.size()-1];
-        	          optimizeacuteanglepoint(p3,p4,p5);
-        	          path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	      optimizeacuteanglepoint(paths[y3],y1,p3,p4,p5);
         	       	}
         	      }
         	  }
