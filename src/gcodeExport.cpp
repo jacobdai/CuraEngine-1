@@ -605,33 +605,54 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 {
     GCodePathConfig* lastConfig = nullptr;
     int extruder = gcode.getExtruderNr();
-    unsigned int y2=0;
-    while(y2<paths.size())
+    
+   unsigned int y3=0;
+   for(unsigned int y3=0;y3<paths.size();y3++)
     {
-        GCodePath* path = &paths[y2];
-        if(path->points.size()==1)
+        for(unsigned int y1=0;y1<paths[y3].points.size();y1++)
         {
-            Point p6 = path->points[0];
-            unsigned int z2 = y2 + 1;
-            while(z2 < paths.size()&& paths[z2].points.size() == 1&&path->config != &travelConfig )
-            {
-               Point p7 = paths[z2].points[0];
-               if(shorterThen(p6 - p7, MICRON2INT(200000)))
-               {
-                   paths.erase(paths.begin()+z2);
-                   z2--;
-               }else
-               {
-                p6 = p7;
-               }
-                z2++;
-            }
-		y2=z2;
-        }else
-         {
-            y2++;
-         }
-    }
+            Point p5=paths[y3].points[y1];
+            if(y1>0)
+              {
+        	Point p4=paths[y3].points[y1-1];
+        	{
+        	 if(y1>1)
+        	  {
+        	   Point p3=paths[y3].points[y1-2];
+        	   optimizeacuteanglepoint(p3,p4,p5);
+        	   path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	  }
+        	  else if(y3>0)
+        	   {
+        	      Point p3=paths[y3-1].points[paths[y3-1].points.size()-1];
+        	      optimizeacuteanglepoint(p3,p4,p5);
+        	      path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	   }
+        	}
+              }
+             else if(y3>0)
+        	  {
+        	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
+        	      {
+        	  	if(paths[y3-1].points.size()>1)
+        	  	{
+        	   	  Point p3=paths[y3-1].points[paths[y3-1].points.size()-2];
+        	     	  optimizeacuteanglepoint(p3,p4,p5);
+        	          path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	  	}
+        	  	else if(y3>2)
+        	  	{
+        	  	  Point p3=paths[y3-2].points[paths[y3-2].points.size()-1];
+        	          optimizeacuteanglepoint(p3,p4,p5);
+        	          path[y3]->points.insert(path[y3]->points.begin()+y1,insertp);
+        	       	}
+        	      }
+        	  }
+        }
+    } 
+    
+    
+
     
     for(unsigned int n=0; n<paths.size(); n++)
     {
