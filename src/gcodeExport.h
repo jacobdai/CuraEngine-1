@@ -18,6 +18,7 @@ class GCodeExport
 {
 private:
     FILE* f;
+    Point insertp;
     double extrusionAmount;
     int extrusionangle;
     double extrusionPerMM;
