@@ -678,75 +678,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	          }
                    paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
                  }
-
-             else if(y3>0)
-        	  {
-        	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
-        	     if(paths[y3-1].points.size()>1)
-        	  	{
-        	   	  Point p3=paths[y3-1].points[paths[y3-1].points.size()-2];
-        	          if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
-                            {
-                             if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
-                               {
-	                              insertp.X=p4.X;
-	                              insertp.Y=(p4.Y+p5.Y)*0.5;
-                               }
-                             else
-                               {
-	                             insertp.X=(p4.X+p5.X)*0.5;
-	                             insertp.Y=p4.Y;
-                               }
-        	             }
-                          else if(((p4.X>=p3.X)&&(p4.Y<=p3.Y)&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y)))
-        	           {
-        	     	     if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
-                               {
-	                             insertp.X=p4.X;
-	                             insertp.Y=(p4.Y+p5.Y)*0.5;
-                               }
-                             else
-                               {
-	                             insertp.X=(p4.X+p5.X)*0.5;
-	                             insertp.Y=p4.Y;
-                               }
-        	            }
-                          paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
-                         }
-        	  	else if(y3>1)
-        	  	{
-        	  	  Point p3=paths[y3-2].points[paths[y3-2].points.size()-1];
-        	           if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
-                             {
-                              if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
-                               {
-	                              insertp.X=p4.X;
-	                              insertp.Y=(p4.Y+p5.Y)*0.5;
-                               }
-                             else
-                               {
-	                             insertp.X=(p4.X+p5.X)*0.5;
-	                             insertp.Y=p4.Y;
-                               }
-        	            }
-                           else if(((p4.X>=p3.X)&&(p4.Y<=p3.Y)&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y)))
-        	             {
-        	              if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
-                               {
-	                             insertp.X=p4.X;
-	                             insertp.Y=(p4.Y+p5.Y)*0.5;
-                               }
-                              else
-                               {
-	                             insertp.X=(p4.X+p5.X)*0.5;
-	                             insertp.Y=p4.Y;
-                               }
-        	             }
-                          paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
-        	       	}
-        	      }
-        	  }
-        }
+              }
+        }  
     }
        
     for(unsigned int n=0; n<paths.size(); n++)
