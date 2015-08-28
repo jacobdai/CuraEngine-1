@@ -622,13 +622,13 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                     if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
                        {
 	               insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
         	     paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
                        }
                        else
                         {
 	                     insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
 	                      paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
                         }
                      }
@@ -637,12 +637,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	     	 if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
                              {
 	                      insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                               }
                       else
                               {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                               }
                               paths[y3].points.insert(paths[y3].points.begin()+y1, insertp); 
         	      }
@@ -659,12 +659,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                           if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
                                {
 	                      insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                                }
                           else
                                {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                                }
         	        }
                         else if(((p4.X>=p3.X)&&(p4.Y<=p3.Y)&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y)))
@@ -672,12 +672,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	     	 if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
                                {
 	                     insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                                }
                           else
                                {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                                }
         	          }
                    paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
@@ -694,12 +694,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                              if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
                                {
 	                      insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                                }
                              else
                                {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                                }
         	             }
                           else if(((p4.X>=p3.X)&&(p4.Y<=p3.Y)&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y)))
@@ -707,12 +707,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	     	     if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
                                {
 	                      insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                                }
                              else
                                {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                                }
         	            }
                           paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
@@ -729,12 +729,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                               if(((p4.X-p3.X)*(p4.Y-p5.Y))>=((p4.X-p5.X)*(p4.Y-p3.Y)))
                                {
 	                      insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                                }
                              else
                                {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                                }
         	            }
                            else if(((p4.X>=p3.X)&&(p4.Y<=p3.Y)&&(p4.X>=p5.X)&&(p4.Y<=p5.Y))||((p4.X<=p3.X)&&(p4.Y>=p3.Y)&&(p4.X<=p5.X)&&(p4.Y>=p5.Y)))
@@ -742,12 +742,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	              if(((p4.X-p3.X)*(p4.Y-p5.Y))<=((p4.X-p5.X)*(p4.Y-p3.Y)))
                                {
 	                     insertp.X=p4.X;
-	                      insertp.Y=p5.Y;
+	                      insertp.Y=0;
                                }
                               else
                                {
 	                      insertp.X=p5.X;
-	                             insertp.Y=p4.Y;
+	                             insertp.Y=0;
                                }
         	             }
                           paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
