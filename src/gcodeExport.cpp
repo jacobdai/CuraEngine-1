@@ -611,14 +611,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         for(unsigned int y1=0;y1<paths[y3].points.size();y1++)
         {
             GCodePath* pathy3 = &paths[y3];
-            if(y3>0)
-            {
-            	GCodePath* pathy4 = &paths[y3-1];
-            }
-             if(y3>1)
-            {
-            	GCodePath* pathy5 = &paths[y3-2];
-            }
             Point p5=paths[y3].points[y1];
             Point insertp;
             if(y1>1)
@@ -662,6 +654,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	   {
         	       Point p4=paths[y3].points[y1-1];
         	       Point p3=paths[y3-1].points[paths[y3-1].points.size()-1];
+        	       GCodePath* pathy4 = &paths[y3-1];
         	       if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy4->config != &travelConfig))
         	       {
         	       if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
@@ -697,7 +690,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  {
         	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	     Point p3=paths[y3-1].points[paths[y3-1].points.size()-2];
-        	     if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy4->config != &travelConfig))
+        	     GCodePath* pathy5 = &paths[y3-1];
+        	     if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy5->config != &travelConfig))
         	      {
         	          if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                             {
@@ -732,7 +726,9 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  	{
         	  	  Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	  	  Point p3=paths[y3-2].points[paths[y3-2].points.size()-1];
-        	  	  if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy4->config != &travelConfig)&&(pathy5->config != &travelConfig))
+        	  	  GCodePath* pathy6 = &paths[y3-1];
+        	  	  GCodePath* pathy7 = &paths[y3-2];
+        	  	  if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy6->config != &travelConfig)&&(pathy7->config != &travelConfig))
         	          {
         	           if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                              {
