@@ -608,25 +608,13 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
    for(unsigned int y3=0;y3<paths.size();y3++)
     {
             GCodePath* pathy3 = &paths[y3];
-            if(pathy3->config == &travelConfig)
-            {
-            	continue;
-            }
             if(y3>0)
             {
             	GCodePath* pathy4 = &paths[y3-1];
-            	if(pathy4->config == &travelConfig)
-                 {
-            	  continue;
-                 }
             }
              if(y3>1)
             {
             	GCodePath* pathy5 = &paths[y3-2];
-            	if(pathy5->config == &travelConfig)
-                 {
-            	  continue;
-                 }
             }
         for(unsigned int y1=0;y1<paths[y3].points.size();y1++)
         {
@@ -636,7 +624,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
               {
         	   Point p4=paths[y3].points[y1-1];
         	   Point p3=paths[y3].points[y1-2];
-        	   if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0)
+        	   if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig))
         	   {
         	   if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                      {
@@ -673,7 +661,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	   {
         	       Point p4=paths[y3].points[y1-1];
         	       Point p3=paths[y3-1].points[paths[y3-1].points.size()-1];
-        	       if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0)
+        	       if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy4->config != &travelConfig))
         	       {
         	       if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                         { 
@@ -708,7 +696,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  {
         	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	     Point p3=paths[y3-1].points[paths[y3-1].points.size()-2];
-        	     if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0)
+        	     if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy4->config != &travelConfig))
         	      {
         	          if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                             {
@@ -743,7 +731,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	  	{
         	  	  Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	  	  Point p3=paths[y3-2].points[paths[y3-2].points.size()-1];
-        	  	  if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0)
+        	  	  if(p4.X!=0&&p4.Y!=0&&p3.X!=0&&p3.Y!=0&&(pathy3->config != &travelConfig)&&(pathy4->config != &travelConfig)&&(pathy5->config != &travelConfig))
         	          {
         	           if(((p4.X>=p3.X)&&(p4.Y>=p3.Y)&&(p4.X>=p5.X)&&(p4.Y>=p5.Y))||((p4.X<=p3.X)&&(p4.Y<=p3.Y)&&(p4.X<=p5.X)&&(p4.Y<=p5.Y)))
                              {
