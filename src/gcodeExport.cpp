@@ -649,7 +649,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	      }
         	   }
         	  }
-        	if(y1=1&&y3>0)
+        	if(y1==1&&y3>0)
         	   {
         	       Point p4=paths[y3].points[y1-1];
         	       Point p3=paths[y3-1].points[paths[y3-1].points.size()-1];
@@ -684,7 +684,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                    paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
         	       }
                  }
-              if(y1=0&&y3>0&&paths[y3-1].points.size()>1)
+              if(y1==0&&y3>0&&paths[y3-1].points.size()>1)
         	  {
         	     Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	     Point p3=paths[y3-1].points[paths[y3-1].points.size()-2];
@@ -719,7 +719,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                           paths[y3].points.insert(paths[y3].points.begin()+y1, insertp);
                          }
         	  }
-        	  if(y1=0&&y3>1&&paths[y3-1].points.size()=1)
+        	  if(y1==0&&y3>1&&paths[y3-1].points.size()==1)
         	  	{
         	  	  Point p4=paths[y3-1].points[paths[y3-1].points.size()-1];
         	  	  Point p3=paths[y3-2].points[paths[y3-2].points.size()-1];
