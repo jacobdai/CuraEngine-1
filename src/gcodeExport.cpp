@@ -243,7 +243,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
 
             //Increase the extrusion amount to calculate the amount of filament used.
             Point diff = p - getPositionXY();
-            extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff);
+            extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff))/1.2);
         }else{
             //If we are not extruding, check if we still need to disable the extruder. This causes a retraction due to auto-retraction.
             if (!isRetracted)
