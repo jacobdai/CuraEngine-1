@@ -287,10 +287,10 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
             fprintf(f, " F%i", speed * 60);
             currentSpeed = speed;
         }
-        float xpos=currentPosition.x;
+                float xpos=currentPosition.x;
 		float ypos=currentPosition.y;
 		float xnext=p.X - extruderOffset[extruderNr].X;
-		float ynext=p.y - extruderOffset[extruderNr].y;
+		float ynext=p.Y - extruderOffset[extruderNr].Y;
 		if((((xpos-xnext)>100000.0)||((xpos-xnext)<-100000.0)||((ypos-ynext)>100000.0)||((ypos-ynext)<-100000.0))&&(lineWidth == 0))
 		{
 			fprintf(f, " X%0.3f Y%0.3f", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y));
