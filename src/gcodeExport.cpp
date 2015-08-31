@@ -305,7 +305,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount), speed);
 	  }else
 	  {
-		loat zadd=currentPosition.z+10000;
+		int zadd=currentPosition.z+10000;
                 fprintf(f, " Z%0.3f", INT2MM(zadd));
                 currentPosition = Point3(p.X, p.Y, zadd);
                 startPosition = currentPosition;
