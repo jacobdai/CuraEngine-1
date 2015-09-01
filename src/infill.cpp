@@ -57,11 +57,11 @@ void generateLineInfill(const Polygons& in_outline, Polygons& result, int extrus
 	double rotationin=rotation;
 	if ((boundaryin.max.X-boundaryin.min.X)<150)
 		{
-			rotationin=0;
+			rotationin=30;
 	     }
 	else if((boundaryin.max.Y-boundaryin.min.Y)<150)
 	    {
-            rotationin=90;
+            rotationin=60;
 	     }
     PointMatrix matrix(rotationin);
     
