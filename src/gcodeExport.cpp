@@ -1,6 +1,8 @@
 /** Copyright (C) 2013 David Braam - Released under terms of the AGPLv3 License */
 #include <stdarg.h>
 #include <stdio.h>
+#include <iostream>
+#include <cmath>
 
 #include "gcodeExport.h"
 #include "pathOrderOptimizer.h"
@@ -209,6 +211,20 @@ void GCodeExport::writeDelay(double timeAmount)
 {
     fprintf(f, "G4 P%d\n", int(timeAmount * 1000));
     totalPrintTime += timeAmount;
+}
+void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter)
+{
+    Point pcur = getPositionXY();
+    Point diff = p - getPositionXY();
+    int clockarc=(pcenter.X-pcur.X)*(p.Y-pcenter.Y)-(pcenter.Y-pcur.Y)*(p.X-pcenter.X);
+    double Arc=2*r*asin((vSizeMM(diff))/(2*r));
+    if(((clockarc<0)&&(clk<0))||((clockarc>0)&&(clk>0)))
+		Arc=2*M_PI*r-Arc;
+    extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
+	if(clk>0)
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),INT2MM(r), extruderCharacter[extruderNr], extrusionAmount);
+	if(clk<0)
+		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),INT2MM(r), extruderCharacter[extruderNr], extrusionAmount);
 }
 
 void GCodeExport::writeMove(Point p, int speed, int lineWidth)
@@ -714,6 +730,38 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
+                if(i<path->points.size-9)
+				{
+					Point VolumeP1=path->points[i];
+					Point VolumeP2=path->points[i+1];
+					Point VolumeP3=path->points[i+2];
+					int a=VolumeP2.Y-VolumeP1.Y;
+					int b=VolumeP1.X-VolumeP2.X;
+					int c=(VolumeP2.Y-VolumeP1.Y)*VolumeP1.X+(VolumeP1.X-VolumeP2.X)*VolumeP1.Y;
+					int d=VolumeP3.Y-VolumeP2.Y;
+					int e=VolumeP2.X-VolumeP3.X;
+					int f=(((VolumeP3.Y-VolumeP2.Y)*VolumeP2.X)+(VolumeP2.X-VolumeP3.X)*VolumeP2.Y);
+					if(a*e!=d*b)
+					{
+						Point VolumeO1;
+					    VolumeO1.X=(f*b-c*e)/(d*b-a*e);
+					    VolumeO1.Y=(a*f-c*d)/(a*e-d*b);
+					    int r1=vSizeMM(VolumeP1-VolumeO1);
+						for(l=i+3;l<path->points.size(); l++)
+						{
+							Point VolumePX=path->points[l];
+							int rx=vSizeMM(VolumePX-VolumeO1);
+							if(rx>r1+100)||(rx<r1-100))
+								continue;
+						}
+						if(l>i+9)
+						{
+							int clock=(VolumeP2.X-VolumeP1.X)*(VolumeP3.Y-VolumeP2.Y)-(VolumeP2.Y-VolumeP1.Y)*(VolumeP3.X-VolumeP2.X);
+							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1);
+							i=l;
+						}
+					}
+				}
             }
         }
     }
