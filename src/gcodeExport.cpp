@@ -212,7 +212,7 @@ void GCodeExport::writeDelay(double timeAmount)
     fprintf(f, "G4 P%d\n", int(timeAmount * 1000));
     totalPrintTime += timeAmount;
 }
-void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter)
+void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter,int ar,int br,int cr,int dr,int er,int fr)
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
@@ -237,9 +237,9 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f O%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X), ar, br, cr, dr, er, fr);
 	if(clk<0)
-		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount);
+		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f O%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X), ar, br, cr, dr, er, fr);
 
     currentPosition = Point3(p.X, p.Y, zPos);
     startPosition = currentPosition;
@@ -777,7 +777,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						if(l>(i+9))
 						{
 							int clock=(VolumeP2.X-VolumeP1.X)*(VolumeP3.Y-VolumeP2.Y)-(VolumeP2.Y-VolumeP1.Y)*(VolumeP3.X-VolumeP2.X);
-							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1);
+							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1,a,b,c,d,e,f);
 							i=l;
 						}
 					}
