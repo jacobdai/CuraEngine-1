@@ -759,7 +759,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					int c=((VolumeP2.Y+VolumeP1.Y)*(VolumeP1.Y-VolumeP2.Y)+(VolumeP1.X-VolumeP2.X)*(VolumeP1.X+VolumeP2.X))/1000000;
 					int d=2*(VolumeP2.X-VolumeP3.X)/1000;
 					int e=2*(VolumeP2.Y-VolumeP3.Y)/1000;
-					int f=(VolumeP3.Y+VolumeP2.Y)*(VolumeP2.Y-VolumeP3.Y)+(VolumeP2.X-VolumeP3.X)*(VolumeP2.X+VolumeP3.X)/1000000;
+					int f=((VolumeP3.Y+VolumeP2.Y)*(VolumeP2.Y-VolumeP3.Y)+(VolumeP2.X-VolumeP3.X)*(VolumeP2.X+VolumeP3.X))/1000000;
 					if(a*e!=d*b)
 					{
 						Point VolumeO1;
