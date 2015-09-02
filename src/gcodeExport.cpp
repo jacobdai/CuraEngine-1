@@ -730,7 +730,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
-                if(i<path->points.size-9)
+                if(i<path->(points.size-9))
 				{
 					Point VolumeP1=path->points[i];
 					Point VolumeP2=path->points[i+1];
@@ -747,14 +747,14 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					    VolumeO1.X=(f*b-c*e)/(d*b-a*e);
 					    VolumeO1.Y=(a*f-c*d)/(a*e-d*b);
 					    int r1=vSizeMM(VolumeP1-VolumeO1);
-						for(l=i+3;l<path->points.size(); l++)
+						for(int l=i+3;l<path->points.size(); l++)
 						{
 							Point VolumePX=path->points[l];
 							int rx=vSizeMM(VolumePX-VolumeO1);
-							if(rx>r1+100)||(rx<r1-100))
+							if((rx>r1+100)||(rx<r1-100))
 								continue;
 						}
-						if(l>i+9)
+						if(l>(i+9))
 						{
 							int clock=(VolumeP2.X-VolumeP1.X)*(VolumeP3.Y-VolumeP2.Y)-(VolumeP2.Y-VolumeP1.Y)*(VolumeP3.X-VolumeP2.X);
 							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1);
