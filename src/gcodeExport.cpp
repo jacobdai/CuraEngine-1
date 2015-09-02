@@ -754,12 +754,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					Point VolumeP1=path->points[i];
 					Point VolumeP2=path->points[i+1];
 					Point VolumeP3=path->points[i+2];
-					int a=VolumeP2.Y-VolumeP1.Y;
-					int b=VolumeP1.X-VolumeP2.X;
-					int c=(VolumeP2.Y-VolumeP1.Y)*VolumeP1.X+(VolumeP1.X-VolumeP2.X)*VolumeP1.Y;
-					int d=VolumeP3.Y-VolumeP2.Y;
-					int e=VolumeP2.X-VolumeP3.X;
-					int f=(((VolumeP3.Y-VolumeP2.Y)*VolumeP2.X)+(VolumeP2.X-VolumeP3.X)*VolumeP2.Y);
+					int a=2*(VolumeP1.X-VolumeP2.X);
+					int b=2*(VolumeP1.Y-VolumeP2.Y);
+					int c=(VolumeP2.Y+VolumeP1.Y)*(VolumeP1.Y-VolumeP2.Y)+(VolumeP1.X-VolumeP2.X)*(VolumeP1.X+VolumeP2.X);
+					int d=2*(VolumeP2.X-VolumeP3.X);
+					int e=2*(VolumeP2.Y-VolumeP3.Y);
+					int f=(VolumeP3.Y+VolumeP2.Y)*(VolumeP2.Y-VolumeP3.Y)+(VolumeP2.X-VolumeP3.X)*(VolumeP2.X+VolumeP3.X);
 					if(a*e!=d*b)
 					{
 						Point VolumeO1;
