@@ -216,7 +216,6 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
-    int radius=r/1000;
     if (isRetracted)
             {
                 if (retractionZHop > 0)
@@ -238,9 +237,9 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),radius, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X),  INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X),  INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr);
 	if(clk<0)
-		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),radius, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X), INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr);
+		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X), INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr);
 
     currentPosition = Point3(p.X, p.Y, zPos);
     startPosition = currentPosition;
@@ -772,7 +771,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						{
 							Point VolumePX=path->points[l];
 							int rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+100)||(rx<r1-100))
+							if((rx>r1+10)||(rx<r1-10))
 								continue;
 						}
 						if(l>(i+9))
