@@ -216,6 +216,18 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
+    if (isRetracted)
+            {
+                if (retractionZHop > 0)
+                    fprintf(f, "G1 Z%0.3f\n", float(currentPosition.z)/1000);
+                extrusionAmount += retractionAmountPrime;
+                fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount);
+                currentSpeed = retractionSpeed;
+                estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount), currentSpeed);
+                if (extrusionAmount > 10000.0)
+                    resetExtrusionValue();
+                isRetracted = false;
+            }
     int clockarc=(pcenter.X-pcur.X)*(p.Y-pcenter.Y)-(pcenter.Y-pcur.Y)*(p.X-pcenter.X);
     double Arc=2*r*asin((vSizeMM(diff))/(2*r));
     if(((clockarc<0)&&(clk<0))||((clockarc>0)&&(clk>0)))
@@ -225,6 +237,10 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
 	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount);
 	if(clk<0)
 		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount);
+
+    currentPosition = Point3(p.X, p.Y, zPos);
+    startPosition = currentPosition;
+    estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount), speed);
 }
 
 void GCodeExport::writeMove(Point p, int speed, int lineWidth)
