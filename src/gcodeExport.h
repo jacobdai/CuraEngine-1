@@ -91,7 +91,7 @@ public:
     
     void writeDelay(double timeAmount);
     
-    void writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter,int ar,int br,int cr,int dr,int er,int fr,Point cp1,Point cp2,Point cp3);
+    void writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter);
     
     void writeMove(Point p, int speed, int lineWidth);
     
