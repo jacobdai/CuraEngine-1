@@ -212,7 +212,7 @@ void GCodeExport::writeDelay(double timeAmount)
     fprintf(f, "G4 P%d\n", int(timeAmount * 1000));
     totalPrintTime += timeAmount;
 }
-void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter,int ar,int br,int cr,int dr,int er,int fr)
+void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter,int ar,int br,int cr,int dr,int er,int fr,Point cp1,Point cp2,Point cp3)
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
@@ -237,9 +237,9 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X),  INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i cp1.x%0.3f cp1.y%0.3f cp2.x%0.3f cp2.y%0.3f cp3.x%0.3f cp3.y%0.3f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X),  INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr, INT2MM(cp1.X - extruderOffset[extruderNr].X), INT2MM(cp1.Y - extruderOffset[extruderNr].Y), INT2MM(cp2.X - extruderOffset[extruderNr].X), INT2MM(cp2.Y - extruderOffset[extruderNr].Y), INT2MM(cp3.X - extruderOffset[extruderNr].X), INT2MM(cp3.Y - extruderOffset[extruderNr].Y));
 	if(clk<0)
-		fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X), INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr);
+	    fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f O.x%0.3f O.y%0.3f a%i b%i c%i d%i e%i f%i cp1.x%0.3f cp1.y%0.3f cp2.x%0.3f cp2.y%0.3f cp3.x%0.3f cp3.y%0.3f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),r, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcenter.X - extruderOffset[extruderNr].X), INT2MM(pcenter.Y - extruderOffset[extruderNr].Y),ar, br, cr, dr, er, fr,  INT2MM(cp1.X - extruderOffset[extruderNr].X), INT2MM(cp1.Y - extruderOffset[extruderNr].Y), INT2MM(cp2.X - extruderOffset[extruderNr].X), INT2MM(cp2.Y - extruderOffset[extruderNr].Y), INT2MM(cp3.X - extruderOffset[extruderNr].X), INT2MM(cp3.Y - extruderOffset[extruderNr].Y));
 
     currentPosition = Point3(p.X, p.Y, zPos);
     startPosition = currentPosition;
@@ -777,7 +777,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						if(l>(i+9))
 						{
 							int clock=(VolumeP2.X-VolumeP1.X)*(VolumeP3.Y-VolumeP2.Y)-(VolumeP2.Y-VolumeP1.Y)*(VolumeP3.X-VolumeP2.X);
-							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1,a,b,c,d,e,f);
+							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1,a,b,c,d,e,f,VolumeP1,VolumeP2,VolumeP3);
 							i=l;
 						}
 					}
