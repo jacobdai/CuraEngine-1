@@ -233,7 +233,7 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
     double Arc=2*r*asin((vSizeMM(diff))/(2*r));
     if(((clockarc<0)&&(clk<0))||((clockarc>0)&&(clk>0)))
     {
-		Arc=2*M_PI*rarc-Arc;
+		Arc=2*M_PI*r-Arc;
 		rarc=-1*r;
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
