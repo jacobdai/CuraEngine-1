@@ -749,39 +749,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
-                if(i<(path->points.size()-9))
-				{
-					Point VolumeP1=path->points[i];
-					Point VolumeP2=path->points[i+1];
-					Point VolumeP3=path->points[i+2];
-					float a=2*(VolumeP1.X-VolumeP2.X);
-					float b=2*(VolumeP1.Y-VolumeP2.Y);
-					float c=((VolumeP2.Y+VolumeP1.Y)*(VolumeP1.Y-VolumeP2.Y)+(VolumeP1.X-VolumeP2.X)*(VolumeP1.X+VolumeP2.X));
-					float d=2*(VolumeP2.X-VolumeP3.X);
-					float e=2*(VolumeP2.Y-VolumeP3.Y);
-					float f=((VolumeP3.Y+VolumeP2.Y)*(VolumeP2.Y-VolumeP3.Y)+(VolumeP2.X-VolumeP3.X)*(VolumeP2.X+VolumeP3.X));
-					if(a*e!=d*b)
-					{
-						Point VolumeO1;
-					    VolumeO1.X=(f*b-c*e)/(d*b-a*e);
-					    VolumeO1.Y=(a*f-c*d)/(a*e-d*b);
-					    int r1=vSizeMM(VolumeP1-VolumeO1);
-					    int l=0;
-						for(l=i+3;l<path->points.size(); l++)
-						{
-							Point VolumePX=path->points[l];
-							int rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+10)||(rx<r1-10))
-								continue;
-						}
-						if(l>(i+9))
-						{
-							int clock=(VolumeP2.X-VolumeP1.X)*(VolumeP3.Y-VolumeP2.Y)-(VolumeP2.Y-VolumeP1.Y)*(VolumeP3.X-VolumeP2.X);
-							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1,a,b,c,d,e,f,VolumeP1,VolumeP2,VolumeP3);
-							i=l;
-						}
-					}
-				}
             }
         }
     }
