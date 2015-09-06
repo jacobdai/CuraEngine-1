@@ -216,7 +216,7 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
-    int rarc=0;
+    int rarc=r;
     if (isRetracted)
             {
                 if (retractionZHop > 0)
@@ -238,7 +238,7 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),rarc, extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f pcur.x%0.3f pcur.y%0.3f pcen.x%0.3f pcen.y%0.3f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),rarc, extruderCharacter[extruderNr], extrusionAmount, INT2MM(pcur.X - extruderOffset[extruderNr].X), INT2MM(pcur.Y - extruderOffset[extruderNr].Y), INT2MM(pcenter.X - extruderOffset[extruderNr].X), INT2MM(pcenter.Y - extruderOffset[extruderNr].Y);
 	if(clk<0)
 	    fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),rarc, extruderCharacter[extruderNr], extrusionAmount);
 
