@@ -792,15 +792,15 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					    VolumeO1.X=ooa*1000/(-2);
 					    VolumeO1.Y=oob*1000/(-2);
 					float r1=(sqrt(ooa*ooa+oob*oob-4*ooc))/2;
-				    int l=0;
+				        int l=0;
 					for(l=i+oN;l<path->points.size(); l++)
 						{
 							Point VolumePX=path->points[l];
 							float rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+0.1)||(rx<r1-0.1))
+							if((rx>r1+2)||(rx<r1-2))
 								break;
 						}
-					if(l>(i+oN+3))
+					if((l>(i+oN+3))&&(r1<500))
 						{
 							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
 							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1);
