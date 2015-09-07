@@ -230,7 +230,10 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point
                 isRetracted = false;
             }
     long long int clockarc=(INT2MM(pcenter.X)-INT2MM(pcur.X))*(INT2MM(p.Y)-INT2MM(pcenter.Y))-(INT2MM(pcenter.Y)-INT2MM(pcur.Y))*(INT2MM(p.X)-INT2MM(pcenter.X));
-    double Arc=2*r*asin((vSizeMM(diff))/(2*r));
+    double as=vSizeMM(diff))/(2*r);
+    if(as>1)
+	as=1;
+    double Arc=2*r*asin(as);
     if(((clockarc<0)&&(clk<0))||((clockarc>0)&&(clk>0)))
     {
 		Arc=2*M_PI*r-Arc;
