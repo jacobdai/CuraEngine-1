@@ -802,7 +802,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 							if((rx>r1+1)||(rx<r1-1))
 								break;
 						}
-					if((l>(i+oN+3))&&(r1<500))
+					if((l>(i+oN+3))&&(r1<300))
 						{
 							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
 							float coi=(VolumeO1.X-VolumeP1.X)/1000;
