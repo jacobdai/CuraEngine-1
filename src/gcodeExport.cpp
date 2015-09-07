@@ -212,11 +212,10 @@ void GCodeExport::writeDelay(double timeAmount)
     fprintf(f, "G4 P%d\n", int(timeAmount * 1000));
     totalPrintTime += timeAmount;
 }
-void GCodeExport::writeArc(Point p, int speed, int lineWidth,float r,int clk,Point pcenter)
+void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,int clk,Point pcenter)
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
-    float rarc=r;
     if (isRetracted)
             {
                 if (retractionZHop > 0)
@@ -230,20 +229,20 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,float r,int clk,Poi
                 isRetracted = false;
             }
     long long int clockarc=(INT2MM(pcenter.X)-INT2MM(pcur.X))*(INT2MM(p.Y)-INT2MM(pcenter.Y))-(INT2MM(pcenter.Y)-INT2MM(pcur.Y))*(INT2MM(p.X)-INT2MM(pcenter.X));
-    double as=vSizeMM(diff)/(2*r);
+    double as=vSizeMM(diff)/(2*ra);
     if(as>1)
 	as=1;
-    double Arc=2*r*asin(as);
+    double Arc=2*ra*asin(as);
     if(((clockarc<0)&&(clk<0))||((clockarc>0)&&(clk>0)))
     {
-		Arc=2*M_PI*r-Arc;
-		rarc=-1*r;
+		Arc=2*M_PI*ra-Arc;
+		ra=(-1)*ra;
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),rarc, extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),ra, extruderCharacter[extruderNr], extrusionAmount);
 	if(clk<0)
-	    fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),rarc, extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G02 F%i X%0.3f Y%0.3f R%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),ra, extruderCharacter[extruderNr], extrusionAmount);
 
     currentPosition = Point3(p.X, p.Y, zPos);
     startPosition = currentPosition;
