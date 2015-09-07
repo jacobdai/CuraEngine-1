@@ -805,8 +805,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					if((l>(i+oN+3))&&(r1<500))
 						{
 							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
-							float coi=(VolumeP1.X-VolumeO1.X)/1000;
-						        float coj=(VolumeP1.Y-VolumeO1.Y)/1000;
+							float coi=(VolumeO1.X-VolumeP1.X)/1000;
+						        float coj=(VolumeO1.Y-VolumeP1.Y)/1000;
 							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,coi,coj,clock,VolumeO1);
 							i=l;
 						}
