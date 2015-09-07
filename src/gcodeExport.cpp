@@ -754,8 +754,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 				{
 					int oN=9;
 					Point VolumeP1=path->points[i];
-					Point VolumeP2=path->points[i+1];
-					Point VolumeP3=path->points[i+2];
+					Point VolumeP2=path->points[i+4];
+					Point VolumeP3=path->points[i+8];
 					float xplus=0;
 					float xplus2=0;
 					float xplus3=0;
@@ -787,7 +787,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					float ooc=(xplus2+yplus2+ooa*xplus+oob*yplus)/(-oN);
 					Point VolumeO1;
 					    VolumeO1.X=ooa*1000/(-2);
-						VolumeO1.Y=oob*1000/(-2);
+					    VolumeO1.Y=oob*1000/(-2);
 					float r1=(sqrt(ooa*ooa+oob*oob-4*ooc))/2;
 				    int l=0;
 					for(l=i+oN;l<path->points.size(); l++)
@@ -799,7 +799,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						}
 					if(l>(i+oN+3))
 						{
-							int clock=(VolumeP2.X-VolumeP1.X)*(VolumeP3.Y-VolumeP2.Y)-(VolumeP2.Y-VolumeP1.Y)*(VolumeP3.X-VolumeP2.X);
+							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
 							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1);
 							i=l;
 						}
