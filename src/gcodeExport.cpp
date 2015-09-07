@@ -212,11 +212,11 @@ void GCodeExport::writeDelay(double timeAmount)
     fprintf(f, "G4 P%d\n", int(timeAmount * 1000));
     totalPrintTime += timeAmount;
 }
-void GCodeExport::writeArc(Point p, int speed, int lineWidth,int r,int clk,Point pcenter)
+void GCodeExport::writeArc(Point p, int speed, int lineWidth,float r,int clk,Point pcenter)
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
-    int rarc=r;
+    float rarc=r;
     if (isRetracted)
             {
                 if (retractionZHop > 0)
@@ -797,7 +797,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						{
 							Point VolumePX=path->points[l];
 							float rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+2)||(rx<r1-2))
+							if((rx>r1+1)||(rx<r1-1))
 								break;
 						}
 					if((l>(i+oN+3))&&(r1<500))
