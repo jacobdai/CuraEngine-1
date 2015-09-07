@@ -794,7 +794,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						{
 							Point VolumePX=path->points[l];
 							float rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+1)||(rx<r1-1))
+							if((rx>r1+0.1)||(rx<r1-0.1))
 								break;
 						}
 					if(l>(i+oN+3))
