@@ -212,7 +212,7 @@ void GCodeExport::writeDelay(double timeAmount)
     fprintf(f, "G4 P%d\n", int(timeAmount * 1000));
     totalPrintTime += timeAmount;
 }
-void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,int coli,int colj,int clk,Point pcenter)
+void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,float coli,float colj,int clk,Point pcenter)
 {
     Point pcur = getPositionXY();
     Point diff = p - getPositionXY();
@@ -243,9 +243,9 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,int coli,i
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f I%i J%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),INT2MM(coli), INT2MM(colj), extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f I%0.3f J%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),coli, colj, extruderCharacter[extruderNr], extrusionAmount);
 	if(clk<0)
-	    fprintf(f, "G02 F%i X%0.3f Y%0.3f I%i J%i %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),INT2MM(coli), INT2MM(colj), extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G02 F%i X%0.3f Y%0.3f I%o.3f J%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),coli, colj, extruderCharacter[extruderNr], extrusionAmount);
 
     currentPosition = Point3(p.X, p.Y, zPos);
     startPosition = currentPosition;
@@ -805,8 +805,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					if((l>(i+oN+3))&&(r1<500))
 						{
 							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
-							int coi=VolumeP1.X-VolumeO1.X;
-							int coj=VolumeP1.Y-VolumeO1.Y;
+							float coi=(VolumeP1.X-VolumeO1.X)/1000;
+						        float coj=(VolumeP1.Y-VolumeO1.Y)/1000;
 							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,coi,coj,clock,VolumeO1);
 							i=l;
 						}
