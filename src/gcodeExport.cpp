@@ -243,9 +243,9 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,float coli
     }
     extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * Arc;
 	if(clk>0)
-	    fprintf(f, "G03 F%i X%0.3f Y%0.3f I%0.3f J%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),coli, colj, extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G03 F%i X%0.3f Y%0.3f I%0.3f J%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), coli, colj, extruderCharacter[extruderNr], extrusionAmount);
 	if(clk<0)
-	    fprintf(f, "G02 F%i X%0.3f Y%0.3f I%o.3f J%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),coli, colj, extruderCharacter[extruderNr], extrusionAmount);
+	    fprintf(f, "G02 F%i X%0.3f Y%0.3f I%0.3f J%0.3f %c%0.5f\n",speed * 60,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), coli, colj, extruderCharacter[extruderNr], extrusionAmount);
 
     currentPosition = Point3(p.X, p.Y, zPos);
     startPosition = currentPosition;
