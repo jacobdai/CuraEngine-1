@@ -752,6 +752,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
+            int l=0;
             for(unsigned int i=0; i<path->points.size(); i++)
             {
             	gcode.writeMove(path->points[i], speed, path->config->lineWidth);
@@ -768,7 +769,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					float lx0=0;
 					float ly0=0;
 					float ld=0;
-					int l=0;
 					while(1)
 					{
 					  for(int lre=i;lre<i+ln;lre++)
@@ -787,15 +787,20 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 							   ly0=INT2MM(path->points[l].Y);
 							   ld=sqrt(fabs(lA*lx0+ly0+lC))/sqrt(lA*lA+1);
 							   if(ld>1)
+							   {
 								   break;
+							   }
 					    }
 					   if(l<i+ln+1)
+					   {
 						    break;
+					   }
 					   ln=l-i;
 					}
-					if(l=i+3)
-						continue;
-					i=l-2; 
+					if(l!=i+3)
+					{
+						i=l-2;
+					}
 				}
              }
                
