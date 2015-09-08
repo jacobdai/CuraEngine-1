@@ -752,9 +752,10 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
-            int l=0;
+            
             for(unsigned int i=0; i<path->points.size(); i++)
             {
+                int l=0;
                 if(i<(path->points.size()-3))
 				{
 					float lxplus=0;
