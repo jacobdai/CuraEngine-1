@@ -754,6 +754,45 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         }else{
             for(unsigned int i=0; i<path->points.size(); i++)
             {
+                if(i<(path->points.size()-3))
+				{
+					float lxplus=0;
+					float lxplus2=0;
+					float lyplus=0;
+					float lyplus2=0;
+					float lxymulti=0;
+					int ln=3;
+					while(1)
+					{
+					  for(int lre=i;lre<i+ln;lre++)
+					  {
+						lxplus+=INT2MM(path->points[lre].X);
+						lxplus2+=INT2MM(path->points[lre].X)*INT2MM(path->points[lre].X);
+						lyplus+=INT2MM(path->points[lre].Y);
+						lyplus2+=INT2MM(path->points[lre].Y)*INT2MM(path->points[lre].Y);
+						lxymulti+=INT2MM(path->points[lre].Y)*INT2MM(path->points[lre].X);
+					    float lC=(-1)*(lxplus2*lyplus-lxplus*lxymulti)/(3*lxplus2-lxplus*lxplus);
+					    float lA=(-1)*(3*lxymulti-lxplus*lyplus)/(3*lxplus2-lxplus*lxplus);
+					  }
+					  for(int l=i+ln;l<path->points.size(); l++)
+					   {
+							   lx0=path->points[l].X;
+							   ly0=path->points[l].Y;
+							   float ld=sqrt(lA*lx0+ly0+lC)/sqrt(lA*lA+1);
+							   if(ld>1)
+								   break;
+					    }
+					   if(l<i+ln+1)
+						    break;
+					   ln=l-i;
+					}
+					if(l=i+3)
+						continue;
+					path->points.erase(path->points.begin+i+1,path->points.begin+l-1); 
+				}
+             }
+            for(unsigned int i=0; i<path->points.size(); i++)
+            {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
                 if(i<(path->points.size()-9))
 				{
