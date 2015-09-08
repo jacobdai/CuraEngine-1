@@ -844,9 +844,9 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					float ooc=(xplus2+yplus2+ooa*xplus+oob*yplus)/(-oN);
 					Point VolumeO1;
 					    VolumeO1.X=ooa*1000/(-2);
-						VolumeO1.Y=oob*1000/(-2);
+					    VolumeO1.Y=oob*1000/(-2);
 					float r1=(sqrt(ooa*ooa+oob*oob-4*ooc))/2;
-				    int l=0;
+				        int l=0;
 					for(l=i+oN;l<path->points.size(); l++)
 						{
 							Point VolumePX=path->points[l];
@@ -854,15 +854,17 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 							if((rx>r1+1)||(rx<r1-1))
 								break;
 						}
-					if(l>(i+oN+3))
+					if((l>(i+oN+3))&&(r1<300))
 						{
 							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
-							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,clock,VolumeO1);
+							float coi=(VolumeO1.X-VolumeP1.X)/1000;
+						        float coj=(VolumeO1.Y-VolumeP1.Y)/1000;
+							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,coi,coj,clock,VolumeO1);
 							i=l;
 						}
 
 				}
-           }
+            }
                
                 
             }
