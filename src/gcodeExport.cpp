@@ -802,6 +802,10 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					}
 				}
              }
+             for(unsigned int i=0; i<path->points.size(); i++)
+            {
+                gcode.writeMove(path->points[i], speed, path->config->lineWidth);
+            }
             
 
              
