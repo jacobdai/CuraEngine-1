@@ -762,14 +762,12 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					float lyplus=0;
 					float lyplus2=0;
 					float lxymulti=0;
-					int ln=3;
+					int ln=5;
 					float lC=0;
 					float lA=0;
 					float lx0=0;
 					float ly0=0;
 					float ld=0;
-					while(1)
-					{
 					  for(int lre=i;lre<i+ln;lre++)
 					  {
 						lxplus+=INT2MM(path->points[lre].X);
@@ -785,18 +783,14 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 							   lx0=INT2MM(path->points[l].X);
 							   ly0=INT2MM(path->points[l].Y);
 							   ld=sqrt(fabs(lA*lx0+ly0+lC))/sqrt(lA*lA+1);
-							   if(ld>0.1)
+							   if(ld>1)
 							   {
 								   break;
 							   }
 					    }
-					   if(l<i+ln+1)
-					   {
-						    break;
-					   }
-					   ln=l-i;
-					}
-					if(l!=i+3)
+
+					
+					if(l!=i+ln)
 					{
 						path->points.erase(path->points.begin()+i+1,path->points.begin()+l-1); 
 					}
@@ -849,7 +843,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						{
 							Point VolumePX=path->points[l];
 							float rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+0.1)||(rx<r1-0.1))
+							if((rx>r1+1)||(rx<r1-1))
 								break;
 						}
 					if((l>(i+oN+3))&&(r1<300))
