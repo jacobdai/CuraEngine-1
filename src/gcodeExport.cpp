@@ -786,7 +786,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 							   lx0=INT2MM(path->points[l].X);
 							   ly0=INT2MM(path->points[l].Y);
 							   ld=sqrt(fabs(lA*lx0+ly0+lC))/sqrt(lA*lA+1);
-							   if(ld>0.1)
+							   if(ld>1)
 							   {
 								   break;
 							   }
