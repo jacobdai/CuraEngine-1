@@ -862,6 +862,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 						}
 
 				}
+            }
             
 
              
