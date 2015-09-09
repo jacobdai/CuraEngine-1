@@ -799,7 +799,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
 					}
 					if(l!=i+3)
 					{
-						i=l-2;
 						path->points.erase(path->points.begin()+i+1,path->points.begin()+l-1); 
 					}
 				}
