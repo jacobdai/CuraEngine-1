@@ -462,13 +462,10 @@ private:
             gcode.writeComment("LAYER:%d", layerNr);
             int Flowadd=1.1*(config.filamentFlow)
             
-            if (layerNr<=2)
-            {
-                gcode.setExtrusion(config.layerThickness, config.filamentDiameter, config.filamentFlow);
-            }else
-            {
+           if (layerNr <= 2)
+                gcode.setExtrusion(config.LayerThickness, config.filamentDiameter, config.filamentFlow);
+            else
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd);
-            }
 
             GCodePlanner gcodeLayer(gcode, config.moveSpeed, config.retractionMinimalDistance);
             int32_t z = config.initialLayerThickness + layerNr * config.layerThickness;
