@@ -130,7 +130,6 @@ public:
     int initialLayerThickness;
     int filamentDiameter;
     int filamentFlow;
-    int flowadd;
     int layer0extrusionWidth;
     int extrusionWidth;
     int insetCount;
