@@ -460,7 +460,7 @@ private:
             }
 
             gcode.writeComment("LAYER:%d", layerNr);
-            int Flowadd=1.1*(config.filamentFlow)
+            int Flowadd=1.1*(config.filamentFlow);
             
            if (layerNr <= 2)
                 gcode.setExtrusion(config.LayerThickness, config.filamentDiameter, config.filamentFlow);
