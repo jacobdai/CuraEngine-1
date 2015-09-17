@@ -752,115 +752,11 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
         }else{
-        	for(unsigned int i=0; i<path->points.size(); i++)
-            {
-                int l=0;
-                if(i<(path->points.size()-3))
-				{
-					float lxplus=0;
-					float lxplus2=0;
-					float lyplus=0;
-					float lyplus2=0;
-					float lxymulti=0;
-					int ln=5;
-					float lC=0;
-					float lA=0;
-					float lx0=0;
-					float ly0=0;
-					float ld=0;
-					  for(int lre=i;lre<i+ln;lre++)
-					  {
-						lxplus+=INT2MM(path->points[lre].X);
-						lxplus2+=INT2MM(path->points[lre].X)*INT2MM(path->points[lre].X);
-						lyplus+=INT2MM(path->points[lre].Y);
-						lyplus2+=INT2MM(path->points[lre].Y)*INT2MM(path->points[lre].Y);
-						lxymulti+=INT2MM(path->points[lre].Y)*INT2MM(path->points[lre].X);
-					        lC=(-1)*(lxplus2*lyplus-lxplus*lxymulti)/(3*lxplus2-lxplus*lxplus);
-					        lA=(-1)*(3*lxymulti-lxplus*lyplus)/(3*lxplus2-lxplus*lxplus);
-					  }
-					  for(l=i+ln;l<path->points.size(); l++)
-					   {
-							   lx0=INT2MM(path->points[l].X);
-							   ly0=INT2MM(path->points[l].Y);
-							   ld=sqrt(fabs(lA*lx0+ly0+lC))/sqrt(lA*lA+1);
-							   if(ld>1)
-							   {
-								   break;
-							   }
-					    }
-
-					
-					if(l!=i+ln)
-					{
-						path->points.erase(path->points.begin()+i+1,path->points.begin()+l-1); 
-					}
-				}
-             }
+        	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth);
-                if(i<(path->points.size()-9))
-				{
-					int oN=9;
-					Point VolumeP1=path->points[i];
-					Point VolumeP2=path->points[i+4];
-					Point VolumeP3=path->points[i+8];
-					float xplus=0;
-					float xplus2=0;
-					float xplus3=0;
-					float yplus=0;
-					float yplus2=0;
-					float yplus3=0;
-					float xymulti=0;
-					float x2y=0;
-					float xy2=0;
-					for(int re=i;re<i+oN;re++)
-					{
-						xplus+=INT2MM(path->points[re].X);
-						xplus2+=INT2MM(path->points[re].X)*INT2MM(path->points[re].X);
-						xplus3+=INT2MM(path->points[re].X)*INT2MM(path->points[re].X)*INT2MM(path->points[re].X);
-						yplus+=INT2MM(path->points[re].Y);
-						yplus2+=INT2MM(path->points[re].Y)*INT2MM(path->points[re].Y);
-						yplus3+=INT2MM(path->points[re].Y)*INT2MM(path->points[re].Y)*INT2MM(path->points[re].Y);
-						xymulti+=INT2MM(path->points[re].Y)*INT2MM(path->points[re].X);
-						x2y+=INT2MM(path->points[re].Y)*INT2MM(path->points[re].X)*INT2MM(path->points[re].X);
-						xy2+=INT2MM(path->points[re].Y)*INT2MM(path->points[re].Y)*INT2MM(path->points[re].X);
-					}
-					float oD=oN*xymulti-xplus*yplus;
-					float oC=oN*xplus2-xplus*xplus;
-					float oE=oN*xplus3+oN*xy2-(xplus2+yplus2)*xplus;
-					float oG=oN*yplus2-yplus*yplus;
-					float oH=oN*yplus3+oN*x2y-(xplus2+yplus2)*yplus;
-					float ooa=(oH*oD-oE*oG)/(oC*oG-oD*oD);
-					float oob=(oH*oC-oE*oD)/(oD*oD-oG*oC);
-					float ooc=(xplus2+yplus2+ooa*xplus+oob*yplus)/(-oN);
-					Point VolumeO1;
-					    VolumeO1.X=ooa*1000/(-2);
-					    VolumeO1.Y=oob*1000/(-2);
-					float r1=(sqrt(ooa*ooa+oob*oob-4*ooc))/2;
-				        int l=0;
-					for(l=i+oN;l<path->points.size(); l++)
-						{
-							Point VolumePX=path->points[l];
-							float rx=vSizeMM(VolumePX-VolumeO1);
-							if((rx>r1+1)||(rx<r1-1))
-								break;
-						}
-					if((l>(i+oN+3))&&(r1<300))
-						{
-							int clock=(INT2MM(VolumeP2.X)-INT2MM(VolumeP1.X))*(INT2MM(VolumeP3.Y)-INT2MM(VolumeP2.Y))-(INT2MM(VolumeP2.Y)-INT2MM(VolumeP1.Y))*(INT2MM(VolumeP3.X)-INT2MM(VolumeP2.X));
-							float coi=(VolumeO1.X-VolumeP1.X)/1000;
-						        float coj=(VolumeO1.Y-VolumeP1.Y)/1000;
-							gcode.writeArc(path->points[l-1],speed,path->config->lineWidth,r1,coi,coj,clock,VolumeO1);
-							i=l;
-						}
-
-				}
             }
-            
-
-             
-            
             }
         }
 
