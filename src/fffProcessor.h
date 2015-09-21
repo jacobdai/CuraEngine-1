@@ -723,7 +723,7 @@ private:
                     break;
             }
         }
-
+        } 
         gcodeLayer.addPolygonsByOptimizer(infillPolygons, &infillConfig);
     }
 
