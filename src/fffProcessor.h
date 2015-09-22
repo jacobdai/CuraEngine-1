@@ -431,7 +431,7 @@ private:
         }
 
         int volumeIdx = 0;
-        int Flowadd=1*(config.filamentFlow);
+        int Flowadd=1.5*(config.filamentFlow);
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             cura::logProgress("export", layerNr+1, totalLayers);
@@ -654,7 +654,7 @@ private:
     void addInfillToGCode(SliceLayerPart* part, GCodePlanner& gcodeLayer, int layerNr, int extrusionWidth, int fillAngle)
     {
         Polygons infillPolygons;
-        if (layerNr<=1)
+        if (layerNr<=3)
         {
         if (config.sparseInfillLineDistance > 0)
         {
