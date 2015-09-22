@@ -431,7 +431,7 @@ private:
         }
 
         int volumeIdx = 0;
-        int Flowadd=1.35*(config.filamentFlow);
+        int Flowadd=1*(config.filamentFlow);
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             cura::logProgress("export", layerNr+1, totalLayers);
