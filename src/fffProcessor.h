@@ -465,7 +465,7 @@ private:
             gcode.writeComment("LAYER:%d", layerNr);
             if (layerNr == 0)
                 gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, config.filamentFlow);
-            else if((layerNr==1)||(layerNr>=4))
+            else if(layerNr==1)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, config.filamentFlow);
             else
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd);
@@ -656,8 +656,6 @@ private:
     void addInfillToGCode(SliceLayerPart* part, GCodePlanner& gcodeLayer, int layerNr, int extrusionWidth, int fillAngle)
     {
         Polygons infillPolygons;
-        if (layerNr<=3)
-        {
         if (config.sparseInfillLineDistance > 0)
         {
             switch (config.infillPattern)
@@ -690,42 +688,6 @@ private:
                     break;
             }
         }
-        }
-        else
-        {
-            if (config.extrusionWidth > 0)
-        {
-            switch (config.infillPattern)
-            {
-                case INFILL_AUTOMATIC:
-                    generateAutomaticInfill(
-                        part->sparseOutline, infillPolygons, extrusionWidth,
-                        config.extrusionWidth,
-                        config.infillOverlap, fillAngle);
-                    break;
-
-                case INFILL_GRID:
-                    generateGridInfill(part->sparseOutline, infillPolygons,
-                                       extrusionWidth,
-                                       config.extrusionWidth,
-                                       config.infillOverlap, fillAngle);
-                    break;
-
-                case INFILL_LINES:
-                    generateLineInfill(part->sparseOutline, infillPolygons,
-                                       extrusionWidth,
-                                       config.extrusionWidth,
-                                       config.infillOverlap, fillAngle);
-                    break;
-
-                case INFILL_CONCENTRIC:
-                    generateConcentricInfill(
-                        part->sparseOutline, infillPolygons,
-                        config.extrusionWidth);
-                    break;
-            }
-        }
-        } 
         gcodeLayer.addPolygonsByOptimizer(infillPolygons, &infillConfig);
     }
 
