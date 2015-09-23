@@ -314,10 +314,10 @@ void SlicerLayer::makePolygons(OptimizedVolume* ov, bool keepNoneClosed, bool ex
 		mix.Y=max.Y;
 		man.X=max.X;
 		man.Y=min.Y;
-		polygonListfix[i].push_back(min);
-		polygonListfix[i].push_back(mix);
-		polygonListfix[i].push_back(max);
-		polygonListfix[i].push_back(man);
+		polygonListfix[i][0]=min;
+		polygonListfix[i][1]=mix;
+		polygonListfix[i][2]=max;
+		polygonListfix[i][3]=man;
 	}
 	polygonList=polygonListfix;
 }
