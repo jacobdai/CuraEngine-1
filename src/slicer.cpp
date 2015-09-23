@@ -300,7 +300,7 @@ void SlicerLayer::makePolygons(OptimizedVolume* ov, bool keepNoneClosed, bool ex
     optimizePolygons(polygonList);
     for (unsigned int i=0;i<polygonList.size();i++)
 	{
-		Point min,max.mix,man;
+		Point min,max,mix,man;
 		min=polygonList[i][0];
 		max=polygonList[i][0];
 		for(unsigned int n=0; n<polygonList[i].size(); n++)
