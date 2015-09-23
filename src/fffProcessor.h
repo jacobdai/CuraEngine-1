@@ -434,8 +434,8 @@ private:
         int Flowadd=1.5*(config.filamentFlow);
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
-            if(layerNr<=3) insetct=0;
-            else insetct=config.insetCount;
+            if(layerNr<=3) insetCt=0;
+            else insetCt=config.insetCount;
             cura::logProgress("export", layerNr+1, totalLayers);
 
             int extrusionWidth = config.extrusionWidth;
