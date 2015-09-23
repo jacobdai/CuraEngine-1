@@ -339,6 +339,7 @@ private:
 
     void writeGCode(SliceDataStorage& storage)
     {
+        
         if (fileNr == 1)
         {
             if (gcode.getFlavor() == GCODE_FLAVOR_ULTIGCODE)
@@ -432,6 +433,7 @@ private:
 
         int volumeIdx = 0;
         int Flowadd=1.5*(config.filamentFlow);
+        int insetCt=0;
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             if(layerNr<=3) insetCt=0;
