@@ -308,7 +308,7 @@ void SlicerLayer::makePolygons(OptimizedVolume* ov, bool keepNoneClosed, bool ex
 			if(polygonList[i][n].X<min.X)min.X=polygonList[i][n].X;
 			if(polygonList[i][n].Y<min.Y)min.Y=polygonList[i][n].Y;
 			if(polygonList[i][n].X>max.X)max.X=polygonList[i][n].X;
-			if(polygonList[i][n].Y>max>Y)max.Y=polygonList[i][n].Y;
+			if(polygonList[i][n].Y>max.Y)max.Y=polygonList[i][n].Y;
 		}
 		polygonListfix[i][0]=min;
 		polygonListfix[i][1].X=min.X;
