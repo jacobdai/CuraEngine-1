@@ -133,6 +133,7 @@ public:
     int layer0extrusionWidth;
     int extrusionWidth;
     int insetCount;
+    int insetCt;
     int downSkinCount;
     int upSkinCount;
     int skirtDistance;
