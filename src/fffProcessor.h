@@ -433,11 +433,8 @@ private:
 
         int volumeIdx = 0;
         int Flowadd=1.5*(config.filamentFlow);
-        int insetCt=0;
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
-            if(layerNr<=3) insetCt=0;
-            else insetCt=config.insetCount;
             cura::logProgress("export", layerNr+1, totalLayers);
 
             int extrusionWidth = config.extrusionWidth;
@@ -695,7 +692,7 @@ private:
 
     void addInsetToGCode(SliceLayerPart* part, GCodePlanner& gcodeLayer, int layerNr)
     {
-        if (config.insetCt > 0)
+        if (config.insetCount > 0)
         {
             if (config.spiralizeMode)
             {
