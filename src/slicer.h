@@ -45,6 +45,7 @@ public:
     int z;
     Polygons polygonList;
     Polygons openPolygons;
+    Polygons polygonListfix;
     
     void makePolygons(OptimizedVolume* ov, bool keepNoneClosed, bool extensiveStitching);
 
