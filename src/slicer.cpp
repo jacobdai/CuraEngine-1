@@ -298,6 +298,26 @@ void SlicerLayer::makePolygons(OptimizedVolume* ov, bool keepNoneClosed, bool ex
 
     //Finally optimize all the polygons. Every point removed saves time in the long run.
     optimizePolygons(polygonList);
+    for (unsigned int i=0;i<polygonList.size();i++)
+	{
+		Point min,max;
+		min=polygonList[i][0];
+		max=polygonList[i][0];
+		for(unsigned int n=0; n<polygonList[i].size(); n++)
+		{
+			if(polygonList[i][n].X<min.X)min.X=polygonList[i][n].X;
+			if(polygonList[i][n].Y<min.Y)min.Y=polygonList[i][n].Y;
+			if(polygonList[i][n].X>max.X)max.X=polygonList[i][n].X;
+			if(polygonList[i][n].Y>max>Y)max.Y=polygonList[i][n].Y;
+		}
+		polygonListfix[i][0]=min;
+		polygonListfix[i][1].X=min.X;
+		polygonListfix[i][1].Y=max.Y;
+		polygonListfix[i][2]=max;
+		polygonListfix[i][3].X=max.X;
+		polygonListfix[i][3].Y=min.Y;
+	}
+	polygonList=polygonListfix;
 }
 
 
