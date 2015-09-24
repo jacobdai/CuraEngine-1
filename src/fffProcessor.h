@@ -634,18 +634,8 @@ private:
             for(Polygons outline : part->skinOutline.splitIntoParts())
             {
                 int bridge = -1;
-                int lsp0=1.2*extrusionWidth;
                 int lsp=1.2*extrusionWidth;
-                if (layerNr > 0)
-                    bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
-                if (layerNr = 0)
-                {
-                generateLineInfill(outline, skinPolygons, extrusionWidth, lsp0, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
-                }
-                else
-                {
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
-                }
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, fillAngle);
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
