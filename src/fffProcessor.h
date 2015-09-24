@@ -635,7 +635,7 @@ private:
             {
                 int bridge = -1;
                 int lsp0=1.35*extrusionWidth;
-                int lsp=1.2*extrusionWidth;
+                int lsp=1.35*extrusionWidth;
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
                 if (layerNr = 0)
