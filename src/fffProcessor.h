@@ -301,9 +301,9 @@ private:
             {
                 for(unsigned int volumeIdx=0; volumeIdx<storage.volumes.size(); volumeIdx++)
                 {
-                    int extrusionWidth = 1.2*(config.extrusionWidth);
+                    int extrusionWidth = (config.extrusionWidth);
                     if (layerNr == 0)
-                        extrusionWidth = 1.5*(config.layer0extrusionWidth);
+                        extrusionWidth = (config.layer0extrusionWidth);
                     generateSkins(layerNr, storage.volumes[volumeIdx], extrusionWidth, config.downSkinCount, config.upSkinCount, config.infillOverlap);
                     generateSparse(layerNr, storage.volumes[volumeIdx], extrusionWidth, config.downSkinCount, config.upSkinCount);
 
@@ -634,9 +634,18 @@ private:
             for(Polygons outline : part->skinOutline.splitIntoParts())
             {
                 int bridge = -1;
+                int lsp0=1.35*extrusionWidth;
+                int lsp=1.2*extrusionWidth;
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
-                generateLineInfill(outline, skinPolygons, extrusionWidth, extrusionWidth, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                if (layerNr = 0)
+                {
+                generateLineInfill(outline, skinPolygons, extrusionWidth, lsp0, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                }
+                else
+                {
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                }
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
