@@ -293,16 +293,17 @@ private:
                 storage.oozeShield[layerNr-1] = storage.oozeShield[layerNr-1].unionPolygons(storage.oozeShield[layerNr].offset(-offsetAngle));
         }
         cura::log("Generated inset in %5.3fs\n", timeKeeper.restart());
-
+        
+        
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             if (!config.spiralizeMode || static_cast<int>(layerNr) < config.downSkinCount)    //Only generate up/downskin and infill for the first X layers when spiralize is choosen.
             {
                 for(unsigned int volumeIdx=0; volumeIdx<storage.volumes.size(); volumeIdx++)
                 {
-                    int extrusionWidth = config.extrusionWidth;
+                    int extrusionWidth = 1.2*(config.extrusionWidth);
                     if (layerNr == 0)
-                        extrusionWidth = config.layer0extrusionWidth;
+                        extrusionWidth = 1.5*(config.layer0extrusionWidth);
                     generateSkins(layerNr, storage.volumes[volumeIdx], extrusionWidth, config.downSkinCount, config.upSkinCount, config.infillOverlap);
                     generateSparse(layerNr, storage.volumes[volumeIdx], extrusionWidth, config.downSkinCount, config.upSkinCount);
 
