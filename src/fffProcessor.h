@@ -620,22 +620,16 @@ private:
                 extrusionWidth = config.layer0extrusionWidth;
 
             // Add either infill or perimeter first depending on option
-            if (!config.perimeterBeforeInfill) 
-            {
-                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
-                addInsetToGCode(part, gcodeLayer, layerNr);
-            }else
-            {
-                addInsetToGCode(part, gcodeLayer, layerNr);
-                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
-            }
+            
             
             Polygons skinPolygons;
             for(Polygons outline : part->skinOutline.splitIntoParts())
             {
                 int bridge = -1;
+                if (layerNr > 0)
+                    bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
                 int lsp=1.2*extrusionWidth;
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, fillAngle);
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
