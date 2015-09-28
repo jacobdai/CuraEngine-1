@@ -639,7 +639,7 @@ private:
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
                 int lsp=1.2*extrusionWidth;
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp,fillAngle);
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
