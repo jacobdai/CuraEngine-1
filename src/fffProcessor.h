@@ -618,7 +618,7 @@ private:
             int extrusionWidth = config.extrusionWidth;
             if (layerNr == 0)
                 extrusionWidth = config.layer0extrusionWidth;
-            if (layerNr==19)
+            if (layerNr>=12)
                 fillAngle=90;
 
             // Add either infill or perimeter first depending on option
