@@ -612,11 +612,9 @@ private:
                 gcodeLayer.setAlwaysRetract(false);
             }
 
-            int fillAngle = 0;
+            int fillAngle = 45;
             if ((layerNr%2)==1)
                 fillAngle += 90;
-            if(layerNr>=12)
-                fillAngle=0;
             int extrusionWidth = config.extrusionWidth;
             if (layerNr == 0)
                 extrusionWidth = config.layer0extrusionWidth;
@@ -639,7 +637,7 @@ private:
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
                 int lsp=1.2*extrusionWidth;
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap,fillAngle);
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
