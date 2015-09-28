@@ -623,14 +623,14 @@ private:
 
             // Add either infill or perimeter first depending on option
             if (!config.perimeterBeforeInfill) 
--            {
--                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
--                addInsetToGCode(part, gcodeLayer, layerNr);
--            }else
--            {
--                addInsetToGCode(part, gcodeLayer, layerNr);
--                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
--            }
+            {
+               addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
+               addInsetToGCode(part, gcodeLayer, layerNr);
+            }else
+            {
+                addInsetToGCode(part, gcodeLayer, layerNr);
+                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
+            }
             
             Polygons skinPolygons;
             for(Polygons outline : part->skinOutline.splitIntoParts())
