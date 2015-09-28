@@ -618,9 +618,19 @@ private:
             int extrusionWidth = config.extrusionWidth;
             if (layerNr == 0)
                 extrusionWidth = config.layer0extrusionWidth;
+            if (layerNr==19)
+                fillAngle=90;
 
             // Add either infill or perimeter first depending on option
-            
+            if (!config.perimeterBeforeInfill) 
+-            {
+-                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
+-                addInsetToGCode(part, gcodeLayer, layerNr);
+-            }else
+-            {
+-                addInsetToGCode(part, gcodeLayer, layerNr);
+-                addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
+-            }
             
             Polygons skinPolygons;
             for(Polygons outline : part->skinOutline.splitIntoParts())
