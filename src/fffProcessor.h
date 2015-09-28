@@ -615,6 +615,8 @@ private:
             int fillAngle = 0;
             if ((layerNr%2)==1)
                 fillAngle += 90;
+            if(layerNr>=12)
+                fillAngle=0;
             int extrusionWidth = config.extrusionWidth;
             if (layerNr == 0)
                 extrusionWidth = config.layer0extrusionWidth;
