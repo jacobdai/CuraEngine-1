@@ -55,11 +55,11 @@ void generateLineInfill(const Polygons& in_outline, Polygons& result, int extrus
     Polygons outline = in_outline.offset(extrusionWidth * infillOverlap / 100);
     AABB boundaryin(outline);
 	double rotationin=rotation;
-	if ((boundaryin.max.X-boundaryin.min.X)<150000)
+	if ((boundaryin.max.X-boundaryin.min.X)<300000)
 		{
 			rotationin=0;
 	     }
-	else if((boundaryin.max.Y-boundaryin.min.Y)<150000)
+	else if((boundaryin.max.Y-boundaryin.min.Y)<300000)
 	    {
             rotationin=90;
 	     }
