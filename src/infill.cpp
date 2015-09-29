@@ -53,18 +53,7 @@ int compare_int64_t(const void* a, const void* b)
 void generateLineInfill(const Polygons& in_outline, Polygons& result, int extrusionWidth, int lineSpacing, int infillOverlap, double rotation)
 {
     Polygons outline = in_outline.offset(extrusionWidth * infillOverlap / 100);
-    Polygons outlinein=outline;
-    AABB boundaryin(outlinein);
-	double rotationin=rotation;
-	if ((boundaryin.max.X-boundaryin.min.X)<300000)
-	   {
-	     rotationin=0;
-	   }
-	else if((boundaryin.max.Y-boundaryin.min.Y)<300000)
-	   {
-             rotationin=90;
-	   }
-    PointMatrix matrix(rotationin);
+    PointMatrix matrix(rotation);
     
     outline.applyMatrix(matrix);
     
