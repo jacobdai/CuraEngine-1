@@ -69,6 +69,10 @@ void generateLineInfill(const Polygons& in_outline, Polygons& result, int extrus
     outline.applyMatrix(matrix);
     
     AABB boundary(outline);
+    if((boundary.max.Y-boundary.min.Y)<200000)
+    {
+    	lineSpacing=1.1*lineSpacing;
+    }
     
     boundary.min.X = ((boundary.min.X / lineSpacing) - 1) * lineSpacing;
     int lineCount = (boundary.max.X - boundary.min.X + (lineSpacing - 1)) / lineSpacing;
