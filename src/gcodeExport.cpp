@@ -319,10 +319,10 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
             }
             if(vSizeMM(diff)<200)
             {
-                extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff)*0.8)/1.2);
-            }else if(vSizeMM(diff)<400)
+                extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff)*0.9)/1.2);
+            }else if(vSizeMM(diff)<300)
             {
-            	extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff)*0.9)/1.2);
+            	extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff)*0.95)/1.2);
             }else
             {
             	extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff))/1.2);
