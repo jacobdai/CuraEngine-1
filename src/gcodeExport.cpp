@@ -297,6 +297,10 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
     }else{
         
         //Normal E handling.
+        float xpos=currentPosition.x;
+	float ypos=currentPosition.y;
+	float xnext=p.X - extruderOffset[extruderNr].X;
+	float ynext=p.Y - extruderOffset[extruderNr].Y;
         if (lineWidth != 0)
         {
             Point diff = p - getPositionXY();
@@ -328,8 +332,12 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
             	extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff))/1.2);
             }
             fprintf(f, "G1");
-        }else{
-            fprintf(f, "G0");
+        }else if((((xpos-xnext)<30000.0)||((xpos-xnext)>-30000.0))&&(((ypos-ynext)<30000.0)||((ypos-ynext)>-30000.0)))
+        {
+            fprintf(f, "G1");
+        }else
+        {
+            fprintf(f, "G0");	
         }
 
         if (currentSpeed != speed)
@@ -337,10 +345,6 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
             fprintf(f, " F%i", speed * 60);
             currentSpeed = speed;
         }
-        float xpos=currentPosition.x;
-	float ypos=currentPosition.y;
-	float xnext=p.X - extruderOffset[extruderNr].X;
-	float ynext=p.Y - extruderOffset[extruderNr].Y;
 	if((((xpos-xnext)>100000.0)||((xpos-xnext)<-100000.0)||((ypos-ynext)>100000.0)||((ypos-ynext)<-100000.0))&&(lineWidth == 0))
 	{
 	  
