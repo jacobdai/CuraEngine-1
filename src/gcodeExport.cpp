@@ -335,7 +335,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         }else if((((xpos-xnext)<30000.0)||((xpos-xnext)>-30000.0))&&(((ypos-ynext)<30000.0)||((ypos-ynext)>-30000.0))&&(zPos == currentPosition.z))
         {
             Point diff = p - getPositionXY();
-            extrusionAmount += ((extrusionPerMM * 8 * vSizeMM(diff)*0.9)/1.2);
+            extrusionAmount += ((extrusionPerMM * 3 * vSizeMM(diff)*0.9)/1.2);
             fprintf(f, "G1");
         }else
         {
