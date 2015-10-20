@@ -110,7 +110,7 @@ void generateLineInfill(const Polygons& in_outline, Polygons& result, int extrus
     
     int idx = 0;
     int count=0;
-    for(int64_t x = boundary.min.X + lineSpacing / 2; x < boundary.max.X; x += lineSpacing)
+    for(int64_t x = boundary.min.X + lineSpacing / 2; x < boundary.max.X+lineSpacing/ 2; x += lineSpacing)
     {
         qsort(cutList[idx].data(), cutList[idx].size(), sizeof(int64_t), compare_int64_t);
         for(unsigned int i = 0; i + 1 < cutList[idx].size(); i+=2)
