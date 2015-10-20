@@ -28,15 +28,22 @@ void generateAutomaticInfill(const Polygons& in_outline, Polygons& result,
     else
     {
     	AABB boundaryin(in_outline);
+    	 Polygons outline;
     	if ((boundaryin.max.X-boundaryin.min.X)<500000)
 	   {
 	     lineSpacing+=10000;
+	     outline = in_outline.offset(20000)
 	   }
 	else if((boundaryin.max.Y-boundaryin.min.Y)<500000)
 	   {
              lineSpacing+=10000;
+             outline = in_outline.offset(20000)
 	   }
-        generateLineInfill(in_outline, result, extrusionWidth, lineSpacing,
+	 else
+	 {
+	 	outline = in_outline.offset(10000);
+	 }
+        generateLineInfill(outline, result, extrusionWidth, lineSpacing,
                            infillOverlap, rotation);
     }
 }
