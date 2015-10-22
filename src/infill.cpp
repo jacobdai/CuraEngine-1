@@ -31,12 +31,12 @@ void generateAutomaticInfill(const Polygons& in_outline, Polygons& result,
     	 Polygons outline;
     	if ((boundaryin.max.X-boundaryin.min.X)<500000)
 	   {
-	     lineSpacing+=10000;
+	     lineSpacing+=5000;
 	     outline = in_outline.offset(20000);
 	   }
 	else if((boundaryin.max.Y-boundaryin.min.Y)<500000)
 	   {
-             lineSpacing+=10000;
+             lineSpacing+=5000;
              outline = in_outline.offset(20000);
 	   }
 	 else
