@@ -677,12 +677,6 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
-        int lineWidth151028= path->config->lineWidth*10;
-        if(path->config->name!="SKIN")
-        {
-        	lineWidth151028= path->config->lineWidth;
-        }
-       
         if (extruder != path->extruder)
         {
             extruder = path->extruder;
@@ -723,11 +717,11 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                     Point newPoint = (paths[x].points[0] + paths[x+1].points[0]) / 2;
                     int64_t newLen = vSize(gcode.getPositionXY() - newPoint);
                     if (newLen > 0)
-                        gcode.writeMove(newPoint, speed, lineWidth151028 * oldLen / newLen);
+                        gcode.writeMove(newPoint, speed, path->config->lineWidth * oldLen / newLen);
                     
                     p0 = paths[x+1].points[0];
                 }
-                gcode.writeMove(paths[i-1].points[0], speed, lineWidth151028);
+                gcode.writeMove(paths[i-1].points[0], speed, path->config->lineWidth);
                 n = i - 1;
                 continue;
             }
@@ -763,13 +757,13 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 length += vSizeMM(p0 - p1);
                 p0 = p1;
                 gcode.setZ(z + layerThickness * length / totalLength);
-                gcode.writeMove(path->points[i], speed, lineWidth151028);
+                gcode.writeMove(path->points[i], speed,path->config->lineWidth);
             }
         }else{
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
-                gcode.writeMove(path->points[i], speed, lineWidth151028);
+                gcode.writeMove(path->points[i], speed, path->config->lineWidth);
             }
             }
         }
