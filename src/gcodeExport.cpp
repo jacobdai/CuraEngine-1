@@ -677,8 +677,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
-        lineWidth151028= path->config->lineWidth;
-        if(path->config->name=SKIN)
+        int lineWidth151028= path->config->lineWidth;
+        if(path->config->name="SKIN")
         {
         	lineWidth151028= path->config->lineWidth*1.5;
         }
