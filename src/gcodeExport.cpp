@@ -677,11 +677,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     for(unsigned int n=0; n<paths.size(); n++)
     {
         GCodePath* path = &paths[n];
-        int lineWidth151028= path->config->lineWidth;
-        if(path->config->name=="SKIN")
-        {
-        	lineWidth151028= path->config->lineWidth*10;
-        }
+        int lineWidth151028= path->config->lineWidth*10;
+       
         if (extruder != path->extruder)
         {
             extruder = path->extruder;
