@@ -101,7 +101,7 @@ private:
         inset0Config.setData(config.inset0Speed, config.extrusionWidth, "WALL-OUTER");
         insetXConfig.setData(config.insetXSpeed, config.extrusionWidth, "WALL-INNER");
         infillConfig.setData(config.infillSpeed, config.extrusionWidth, "FILL");
-        skinConfig.setData(config.skinSpeed, config.extrusionWidth*1.5, "FILL");
+        skinConfig.setData(config.skinSpeed, config.extrusionWidth, "FILL");
         supportConfig.setData(config.printSpeed, config.extrusionWidth, "SUPPORT");
 
         for(unsigned int n=1; n<MAX_EXTRUDERS;n++)
@@ -451,7 +451,7 @@ private:
                 inset0Config.setData(SPEED_SMOOTH(config.inset0Speed), extrusionWidth, "WALL-OUTER");
                 insetXConfig.setData(SPEED_SMOOTH(config.insetXSpeed), extrusionWidth, "WALL-INNER");
                 infillConfig.setData(SPEED_SMOOTH(config.infillSpeed), extrusionWidth,  "FILL");
-                skinConfig.setData(SPEED_SMOOTH(config.skinSpeed), extrusionWidth*1.5,  "SKIN");
+                skinConfig.setData(SPEED_SMOOTH(config.skinSpeed), extrusionWidth,  "SKIN");
                 supportConfig.setData(SPEED_SMOOTH(config.printSpeed), extrusionWidth, "SUPPORT");
 #undef SPEED_SMOOTH
             }else{
@@ -459,7 +459,7 @@ private:
                 inset0Config.setData(config.inset0Speed, extrusionWidth, "WALL-OUTER");
                 insetXConfig.setData(config.insetXSpeed, extrusionWidth, "WALL-INNER");
                 infillConfig.setData(config.infillSpeed, extrusionWidth, "FILL");
-                skinConfig.setData(config.skinSpeed, extrusionWidth*1.5, "SKIN");
+                skinConfig.setData(config.skinSpeed, extrusionWidth, "SKIN");
                 supportConfig.setData(config.printSpeed, extrusionWidth, "SUPPORT");
             }
 
