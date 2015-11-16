@@ -28,7 +28,7 @@ void generateAutomaticInfill(const Polygons& in_outline, Polygons& result,
     else
     {
     	AABB boundaryin(in_outline);
-    	 Polygons outline；
+    	 Polygons outline;
 	outline = in_outline.offset(20000);
         generateLineInfill(outline, result, extrusionWidth, lineSpacing,
                            infillOverlap, rotation);
