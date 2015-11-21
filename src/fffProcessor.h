@@ -657,16 +657,26 @@ private:
 
     void addInfillToGCode(SliceLayerPart* part, GCodePlanner& gcodeLayer, int layerNr, int extrusionWidth, int fillAngle)
     {
+        int linespacing13=1.2*extrusionWidth;
         Polygons infillPolygons;
         if (config.sparseInfillLineDistance > 0)
         {
             switch (config.infillPattern)
             {
                 case INFILL_AUTOMATIC:
+                if(layerNr==13)
+                {
                     generateAutomaticInfill(
+                        part->sparseOutline, infillPolygons, extrusionWidth,
+                        linespacing13,
+                        config.infillOverlap, fillAngle);   
+                }else
+                {
+                     generateAutomaticInfill(
                         part->sparseOutline, infillPolygons, extrusionWidth,
                         config.sparseInfillLineDistance,
                         config.infillOverlap, fillAngle);
+                }
                     break;
 
                 case INFILL_GRID:
