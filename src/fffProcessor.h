@@ -668,7 +668,7 @@ private:
                 {
                     generateAutomaticInfill(
                         part->sparseOutline, infillPolygons, extrusionWidth,
-                        linespacing12,
+                        linespacing13,
                         config.infillOverlap, fillAngle);   
                 }else
                 {
