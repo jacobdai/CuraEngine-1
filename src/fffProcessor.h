@@ -637,7 +637,7 @@ private:
                 int bridge = -1;
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
-                int lsp=1.23*extrusionWidth;
+                int lsp=1.1*extrusionWidth;
                     generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
             }
             if (config.enableCombing == COMBING_NOSKIN)
@@ -657,14 +657,14 @@ private:
 
     void addInfillToGCode(SliceLayerPart* part, GCodePlanner& gcodeLayer, int layerNr, int extrusionWidth, int fillAngle)
     {
-        int linespacing13=1.2*extrusionWidth;
+        int linespacing13=1.1*extrusionWidth;
         Polygons infillPolygons;
         if (config.sparseInfillLineDistance > 0)
         {
             switch (config.infillPattern)
             {
                 case INFILL_AUTOMATIC:
-                if(layerNr==13)
+                if(layerNr==4)
                 {
                     generateAutomaticInfill(
                         part->sparseOutline, infillPolygons, extrusionWidth,
