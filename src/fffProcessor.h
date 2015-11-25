@@ -433,8 +433,9 @@ private:
         }
 
         int volumeIdx = 0;
-        int Flowadd3=1.5*(config.filamentFlow);
         int Flowadd2=1.2*(config.filamentFlow);
+        int Flowadd3=1.5*(config.filamentFlow);
+        int Flowadd4=1.8*(config.filamentFlow);
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             cura::logProgress("export", layerNr+1, totalLayers);
@@ -468,6 +469,10 @@ private:
                 gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, config.filamentFlow);
             else if(layerNr==1)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd2);
+            else if(layerNr==2)
+                gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
+            else if(layerNr<=4)
+                gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd4); 
             else
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
 
@@ -657,14 +662,14 @@ private:
 
     void addInfillToGCode(SliceLayerPart* part, GCodePlanner& gcodeLayer, int layerNr, int extrusionWidth, int fillAngle)
     {
-        int linespacing13=1.1*extrusionWidth;
+        int linespacing13=1.2*extrusionWidth;
         Polygons infillPolygons;
         if (config.sparseInfillLineDistance > 0)
         {
             switch (config.infillPattern)
             {
                 case INFILL_AUTOMATIC:
-                if(layerNr==4)
+                if(layerNr==3)
                 {
                     generateAutomaticInfill(
                         part->sparseOutline, infillPolygons, extrusionWidth,
