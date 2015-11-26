@@ -471,7 +471,7 @@ private:
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd2);
             else if(layerNr==2)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
-            else if(layerNr<=4)
+            else if(layerNr==13||layerNr==14)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd4); 
             else
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
@@ -669,7 +669,7 @@ private:
             switch (config.infillPattern)
             {
                 case INFILL_AUTOMATIC:
-                if(layerNr==3)
+                if(layerNr==13)
                 {
                     generateAutomaticInfill(
                         part->sparseOutline, infillPolygons, extrusionWidth,
