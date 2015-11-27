@@ -642,8 +642,15 @@ private:
                 int bridge = -1;
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
-                int lsp=0.96*extrusionWidth;
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                int lsp13=0.96*extrusionWidth;
+                int lspother=1.1*extrusionWidth;
+                if(layerNr==13||layerNr==14)
+                {
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                }else
+                {
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lspother, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                }
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
