@@ -643,7 +643,7 @@ private:
                 if (layerNr > 0)
                     bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr-1]);
                 int lsp13=0.96*extrusionWidth;
-                int lspother=1.1*extrusionWidth;
+                int lspother=1.16*extrusionWidth;
                 if(layerNr==13||layerNr==14)
                 {
                     generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
