@@ -471,8 +471,8 @@ private:
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd2);
             else if(layerNr==2)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
-            else if(layerNr==13||layerNr==14||layerNr==15)
-                gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd4); 
+            //else if(layerNr==13||layerNr==14||layerNr==15)
+                //gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd4); 
             else
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
 
@@ -645,12 +645,12 @@ private:
                 int lsp=1.1*extrusionWidth;
                 int lsp13=0.96*extrusionWidth;
                 int lspother=1.16*extrusionWidth;
-                if(layerNr==13||layerNr==14)
+                if(layerNr==12||layerNr==13||layerNr==14||layerNr==15)
                 {
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
                 }else
                 {
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
+                    generateLineInfill(outline, skinPolygons, extrusionWidth, lspother, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
                 }
             }
             if (config.enableCombing == COMBING_NOSKIN)
