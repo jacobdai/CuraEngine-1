@@ -645,7 +645,7 @@ private:
                 int lsp=1.1*extrusionWidth;
                 int lsp13=0.96*extrusionWidth;
                 int lspother=1.16*extrusionWidth;
-                if(layerNr==23||layerNr==24||layerNr==25||layerNr==26)
+                if(layerNr==22||layerNr==23||layerNr==24||layerNr==25)
                 {
                     generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
                 }else
@@ -677,6 +677,7 @@ private:
             switch (config.infillPattern)
             {
                 case INFILL_AUTOMATIC:
+                /*
                 if(layerNr==22)
                 {
                     generateAutomaticInfill(
@@ -685,6 +686,7 @@ private:
                         config.infillOverlap, fillAngle);   
                 }else
                 {
+                */
                 
                      generateAutomaticInfill(
                         part->sparseOutline, infillPolygons, extrusionWidth,
