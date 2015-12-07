@@ -645,7 +645,7 @@ private:
                 int lsp=1.1*extrusionWidth;
                 int lsp13=extrusionWidth;
                 int lspother=1.16*extrusionWidth;
-                if(layerNr==33||layerNr==34||layerNr==35||layerNr==36)
+                if(layerNr==28||layerNr==29||layerNr==30||layerNr==31)
                 {
                     generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
                 }else
