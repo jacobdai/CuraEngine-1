@@ -468,9 +468,9 @@ private:
 
             gcode.writeComment("LAYER:%d", layerNr);
             if (layerNr == 0)
-                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd5);
-            else
                 gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd6);
+            else
+                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd5);
             /*else if(layerNr==1)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd2);
             else if(layerNr==2)
