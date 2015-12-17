@@ -321,7 +321,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                     resetExtrusionValue();
                 isRetracted = false;
             }
-            	extrusionAmount += ((extrusionPerMM * 15 * vSizeMM(diff))/1.2);
+            	extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff))/1.2);
             fprintf(f, "G1");
         }else if((((xpos-xnext)<30000.0)||((xpos-xnext)>-30000.0))&&(((ypos-ynext)<30000.0)||((ypos-ynext)>-30000.0))&&(zPos == currentPosition.z))
         {
@@ -351,6 +351,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                 fprintf(f, " Z%0.3f\n", INT2MM(zadd));
                 fprintf(f, "G0 F%i X%0.3f Y%0.3f\n", speed * 60 ,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y));
                 fprintf(f, "G0 F%i Z%0.3f", speed * 60 , INT2MM(zadd-10000));
+                extrusionAmount -= ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff))/1.2);
 	  }
           fprintf(f, "\n");
 	}else
