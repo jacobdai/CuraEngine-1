@@ -321,7 +321,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                     resetExtrusionValue();
                 isRetracted = false;
             }
-            	extrusionAmount += ((extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff))/1.2);
+            	extrusionAmount += ((extrusionPerMM * 15 * vSizeMM(diff))/1.2);
             fprintf(f, "G1");
         }else if((((xpos-xnext)<30000.0)||((xpos-xnext)>-30000.0))&&(((ypos-ynext)<30000.0)||((ypos-ynext)>-30000.0))&&(zPos == currentPosition.z))
         {
