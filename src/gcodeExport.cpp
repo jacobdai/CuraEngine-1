@@ -304,7 +304,6 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         if (lineWidth != 0)
         {
             Point diff = p - getPositionXY();
-            fprintf(f, "currentPosition.x%0.3f    currentPosition.y%0.3f", INT2MM(currentPosition.x - extruderOffset[extruderNr].X),INT2MM(currentPosition.y - extruderOffset[extruderNr].Y));
             if (isRetracted)
             {
                 if (retractionZHop > 0)
@@ -349,9 +348,9 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
 	  }else
 	  {
 		int zadd=currentPosition.z+10000;
-                fprintf(f, " Z%0.3f  %c%0.5f\n", INT2MM(zadd), extruderCharacter[extruderNr], extrusionAmount);
-                fprintf(f, "G0 F%i X%0.3f Y%0.3f  %c%0.5f\n", speed * 60 ,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y),extruderCharacter[extruderNr], extrusionAmount);
-                fprintf(f, "G0 F%i Z%0.3f  %c%0.5f", speed * 60 , INT2MM(zadd-10000),extruderCharacter[extruderNr], extrusionAmount);
+                fprintf(f, " Z%0.3f\n", INT2MM(zadd));
+                fprintf(f, "G0 F%i X%0.3f Y%0.3f\n", speed * 60 ,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y));
+                fprintf(f, "G0 F%i Z%0.3f", speed * 60 , INT2MM(zadd-10000));
 	  }
           fprintf(f, "\n");
 	}else
