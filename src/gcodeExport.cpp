@@ -252,7 +252,7 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,float coli
     estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount), speed);
 }
 
-void GCodeExport::writeMove(Point p, int speed, int lineWidth)
+void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
 {
     if (currentPosition.x == p.X && currentPosition.y == p.Y && currentPosition.z == zPos)
         return;
@@ -295,6 +295,10 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         }
         fprintf(f, "G1 X%0.3f Y%0.3f Z%0.3f F%0.1f\r\n", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), INT2MM(zPos), fspeed);
     }else{
+    	if(isskin)
+    	{
+    	   extrusionPerMM=1.3*extrusionPerMM;
+    	}
         
         //Normal E handling.
         float xpos=currentPosition.x;
