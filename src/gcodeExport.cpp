@@ -777,7 +777,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
-            	const char* name_1 ="SKIN";
+            	const char* name_1 ="FILL";
             	const char* name_2 =path->config->name;
             	if(strcmp(name_1,name_1)==0)
             	{
