@@ -703,9 +703,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
            {
            	extrusionisskin=true;
            }
-           fprintf(f, "%d", a173);
-           fprintf(f, "%d", a25);
-           
+           fprintf(f, " a173%i", a173);
+           fprintf(f, " a25%i", a25);
         }
         if (extruder != path->extruder)
         {
