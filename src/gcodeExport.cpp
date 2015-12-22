@@ -295,9 +295,11 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
         }
         fprintf(f, "G1 X%0.3f Y%0.3f Z%0.3f F%0.1f\r\n", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), INT2MM(zPos), fspeed);
     }else{
+    	int extrusionPerMM13=1.3*extrusionPerMM;
+    	int extrusionPerMMadd=extrusionPerMM;
     	if(isskin)
     	{
-    	   extrusionPerMM=1.3*extrusionPerMM;
+    	   extrusionPerMMadd=extrusionPerMM13;
     	}
         
         //Normal E handling.
@@ -325,11 +327,11 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
                     resetExtrusionValue();
                 isRetracted = false;
             }
-            	extrusionAmount += ((extrusionPerMM * 15 * vSizeMM(diff))/1.2);
+            	extrusionAmount += ((extrusionPerMMadd * 15 * vSizeMM(diff))/1.2);
             fprintf(f, "G1");
         }else if((((xpos-xnext)<30000.0)||((xpos-xnext)>-30000.0))&&(((ypos-ynext)<30000.0)||((ypos-ynext)>-30000.0))&&(zPos == currentPosition.z))
         {
-            extrusionAmount += ((extrusionPerMM * 7.5 * vSizeMM(diff)*0.9)/1.2);
+            extrusionAmount += ((extrusionPerMMadd * 7.5 * vSizeMM(diff)*0.9)/1.2);
             fprintf(f, "G1");
         }else
         {
@@ -350,7 +352,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
                 fprintf(f, " Z%0.3f", INT2MM(zPos));
 	  }else
 	  {
-                extrusionAmount -= ((extrusionPerMM * 7.5 * vSizeMM(diff)*0.9)/1.2);
+                extrusionAmount -= ((extrusionPerMMadd * 7.5 * vSizeMM(diff)*0.9)/1.2);
 		int zadd=currentPosition.z+10000;
                 fprintf(f, " Z%0.3f\n",INT2MM(zadd));
                 fprintf(f, "G0 F%i X%0.3f Y%0.3f\n", speed * 60 ,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y));
