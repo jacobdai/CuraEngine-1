@@ -688,11 +688,11 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         GCodePath* path = &paths[n];
         for(unsigned int i=1; i<path->points.size(); i++)
         {
-           if((17.3<=(path->points[i].X-path->points[i-1].X)<=17.5)||(17.3<=(path->points[i].Y-path->points[i-1].Y)<=17.5))
+           if((17300<=(path->points[i].X-path->points[i-1].X)<=17500)||(17300<=(path->points[i].Y-path->points[i-1].Y)<=17500))
            {
            	a173++;
            }
-           if((24.9<=(path->points[i].X-path->points[i-1].X)<=25.1)||(24.9<=(path->points[i].Y-path->points[i-1].Y)<=25.1))
+           if((24900<=(path->points[i].X-path->points[i-1].X)<=25100)||(24900<=(path->points[i].Y-path->points[i-1].Y)<=25100))
            {
            	a25++;
            }
