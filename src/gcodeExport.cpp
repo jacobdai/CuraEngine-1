@@ -772,9 +772,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             {
             	double extruad=1.0;
             	double extruadd=1.3;
-            	const char* name_1 ="FILL";
-            	const char* name_2 =path->config->name;
-            	if(strcmp(name_1,name_1)==0)
+            	if(strcmp("FILL",path->config->name)==0)
             	{
             	   gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruadd);
             	}else
