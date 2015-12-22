@@ -361,8 +361,9 @@ private:
             gcode.resetExtrusionValue();
             gcode.writeRetraction();
             gcode.setZ(maxObjectHeight + 5000);
-            gcode.writeMove(gcode.getPositionXY(), config.moveSpeed, 0);
-            gcode.writeMove(Point(storage.modelMin.x, storage.modelMin.y), config.moveSpeed, 0);
+            bool setfalse3=false;
+            gcode.writeMove(gcode.getPositionXY(), config.moveSpeed, 0,setfalse3);
+            gcode.writeMove(Point(storage.modelMin.x, storage.modelMin.y), config.moveSpeed, 0,setfalse3);
         }
         fileNr++;
 
