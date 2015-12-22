@@ -93,7 +93,7 @@ public:
     
     void writeArc(Point p, int speed, int lineWidth,float ra,float coli,float colj,int clk,Point pcenter);
     
-    void writeMove(Point p, int speed, int lineWidth, bool isskin);
+    void writeMove(Point p, int speed, int lineWidth, double exadd);
     
     void writeint(int i);
     
