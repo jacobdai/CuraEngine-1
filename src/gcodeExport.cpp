@@ -295,8 +295,8 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
         }
         fprintf(f, "G1 X%0.3f Y%0.3f Z%0.3f F%0.1f\r\n", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), INT2MM(zPos), fspeed);
     }else{
-    	int extrusionPerMM13=1.3*extrusionPerMM;
-    	int extrusionPerMMadd=extrusionPerMM;
+    	double extrusionPerMM13=1.3*extrusionPerMM;
+    	double extrusionPerMMadd=extrusionPerMM;
     	if(isskin)
     	{
     	   extrusionPerMMadd=extrusionPerMM13;
