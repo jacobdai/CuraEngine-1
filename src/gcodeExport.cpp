@@ -252,7 +252,7 @@ void GCodeExport::writeArc(Point p, int speed, int lineWidth,float ra,float coli
     estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount), speed);
 }
 
-void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
+void GCodeExport::writeMove(Point p, int speed, int lineWidth,double exadd)
 {
     if (currentPosition.x == p.X && currentPosition.y == p.Y && currentPosition.z == zPos)
         return;
@@ -295,13 +295,6 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
         }
         fprintf(f, "G1 X%0.3f Y%0.3f Z%0.3f F%0.1f\r\n", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), INT2MM(zPos), fspeed);
     }else{
-    	double extrusionPerMM13=1.3*extrusionPerMM;
-    	double extrusionPerMMadd=extrusionPerMM;
-    	if(isskin)
-    	{
-    	   extrusionPerMMadd=extrusionPerMM13;
-    	}
-        
         //Normal E handling.
         float xpos=currentPosition.x;
 	float ypos=currentPosition.y;
@@ -327,11 +320,11 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
                     resetExtrusionValue();
                 isRetracted = false;
             }
-            	extrusionAmount += ((extrusionPerMMadd * 15 * vSizeMM(diff))/1.2);
+            	extrusionAmount += ((exadd*extrusionPerMM * 15 * vSizeMM(diff))/1.2);
             fprintf(f, "G1");
         }else if((((xpos-xnext)<30000.0)||((xpos-xnext)>-30000.0))&&(((ypos-ynext)<30000.0)||((ypos-ynext)>-30000.0))&&(zPos == currentPosition.z))
         {
-            extrusionAmount += ((extrusionPerMMadd * 7.5 * vSizeMM(diff)*0.9)/1.2);
+            extrusionAmount += ((exadd*extrusionPerMM * 7.5 * vSizeMM(diff)*0.9)/1.2);
             fprintf(f, "G1");
         }else
         {
@@ -352,7 +345,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth,bool isskin)
                 fprintf(f, " Z%0.3f", INT2MM(zPos));
 	  }else
 	  {
-                extrusionAmount -= ((extrusionPerMMadd * 7.5 * vSizeMM(diff)*0.9)/1.2);
+                extrusionAmount -= ((exadd*extrusionPerMM * 7.5 * vSizeMM(diff)*0.9)/1.2);
 		int zadd=currentPosition.z+10000;
                 fprintf(f, " Z%0.3f\n",INT2MM(zadd));
                 fprintf(f, "G0 F%i X%0.3f Y%0.3f\n", speed * 60 ,INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y));
@@ -493,7 +486,7 @@ void GCodeExport::finalize(int maxObjectHeight, int moveSpeed, const char* endCo
     writeRetraction();
     setZ(maxObjectHeight + 5000);
     bool setfalse1=false;
-    writeMove(getPositionXY(), moveSpeed, 0,setfalse1);
+    writeMove(getPositionXY(), moveSpeed, 0,1.0);
     writeCode(endCode);
     cura::log("Print time: %d\n", int(getTotalPrintTime()));
     cura::log("Filament: %d\n", int(getTotalFilamentUsed(0)));
@@ -731,11 +724,11 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                     Point newPoint = (paths[x].points[0] + paths[x+1].points[0]) / 2;
                     int64_t newLen = vSize(gcode.getPositionXY() - newPoint);
                     if (newLen > 0)
-                        gcode.writeMove(newPoint, speed, path->config->lineWidth * oldLen / newLen,extrusionisskin);
+                        gcode.writeMove(newPoint, speed, path->config->lineWidth * oldLen / newLen,1.0);
                     
                     p0 = paths[x+1].points[0];
                 }
-                gcode.writeMove(paths[i-1].points[0], speed, path->config->lineWidth,extrusionisskin);
+                gcode.writeMove(paths[i-1].points[0], speed, path->config->lineWidth,1.0);
                 n = i - 1;
                 continue;
             }
@@ -771,19 +764,23 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 length += vSizeMM(p0 - p1);
                 p0 = p1;
                 gcode.setZ(z + layerThickness * length / totalLength);
-                gcode.writeMove(path->points[i], speed,path->config->lineWidth,extrusionisskin);
+                gcode.writeMove(path->points[i], speed,path->config->lineWidth,1.0);
             }
         }else{
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
+            	double extruad=1.0;
+            	double extruadd=1.3;
             	const char* name_1 ="FILL";
             	const char* name_2 =path->config->name;
             	if(strcmp(name_1,name_1)==0)
             	{
-            	   extrusionisskin=true;
+            	   gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruadd);
+            	}else
+            	{
+            	   gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruad);	
             	}
-                gcode.writeMove(path->points[i], speed, path->config->lineWidth,extrusionisskin);
             }
             }
         }
@@ -795,8 +792,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         gcode.writeRetraction(true);
         gcode.setZ(gcode.getPositionZ() + MM2INT(3.0));
         bool setfalse2=false;
-        gcode.writeMove(gcode.getPositionXY(), travelConfig.speed, 0,setfalse2);
-        gcode.writeMove(gcode.getPositionXY() - Point(-MM2INT(20.0), 0), travelConfig.speed, 0,setfalse2);
+        gcode.writeMove(gcode.getPositionXY(), travelConfig.speed, 0,1.0);
+        gcode.writeMove(gcode.getPositionXY() - Point(-MM2INT(20.0), 0), travelConfig.speed, 0,1.0);
         gcode.writeDelay(extraTime);
     }
 }
