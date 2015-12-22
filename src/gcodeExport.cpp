@@ -481,7 +481,8 @@ void GCodeExport::finalize(int maxObjectHeight, int moveSpeed, const char* endCo
     writeFanCommand(0);
     writeRetraction();
     setZ(maxObjectHeight + 5000);
-    writeMove(getPositionXY(), moveSpeed, 0);
+    bool setfalse1=false;
+    writeMove(getPositionXY(), moveSpeed, 0,setfalse1);
     writeCode(endCode);
     cura::log("Print time: %d\n", int(getTotalPrintTime()));
     cura::log("Filament: %d\n", int(getTotalFilamentUsed(0)));
@@ -739,7 +740,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                     Point newPoint = (paths[x].points[0] + paths[x+1].points[0]) / 2;
                     int64_t newLen = vSize(gcode.getPositionXY() - newPoint);
                     if (newLen > 0)
-                        gcode.writeMove(newPoint, speed, path->config->lineWidth * oldLen / newLen);
+                        gcode.writeMove(newPoint, speed, path->config->lineWidth * oldLen / newLen,extrusionisskin);
                     
                     p0 = paths[x+1].points[0];
                 }
@@ -779,7 +780,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
                 length += vSizeMM(p0 - p1);
                 p0 = p1;
                 gcode.setZ(z + layerThickness * length / totalLength);
-                gcode.writeMove(path->points[i], speed,path->config->lineWidth);
+                gcode.writeMove(path->points[i], speed,path->config->lineWidth,extrusionisskin);
             }
         }else{
         	
@@ -796,8 +797,9 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         gcode.writeComment("Small layer, adding delay of %f", extraTime);
         gcode.writeRetraction(true);
         gcode.setZ(gcode.getPositionZ() + MM2INT(3.0));
-        gcode.writeMove(gcode.getPositionXY(), travelConfig.speed, 0);
-        gcode.writeMove(gcode.getPositionXY() - Point(-MM2INT(20.0), 0), travelConfig.speed, 0);
+        bool setfalse2=false;
+        gcode.writeMove(gcode.getPositionXY(), travelConfig.speed, 0,setfalse2);
+        gcode.writeMove(gcode.getPositionXY() - Point(-MM2INT(20.0), 0), travelConfig.speed, 0,setfalse2);
         gcode.writeDelay(extraTime);
     }
 }
