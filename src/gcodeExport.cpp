@@ -775,6 +775,45 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
+            	if(i>0)
+{
+   if(i<path->points.size()-1)
+   {
+	  int diffX1=abs(path->points[i].X-path->points[i-1].X);
+	  int diffY1=abs(path->points[i].Y-path->points[i-1].Y);
+	  int diffX2=abs(path->points[i].X-path->points[i+1].X);
+	  int diffY2=abs(path->points[i].Y-path->points[i+1].Y);
+   }else if(n<paths.size()-1)
+   {
+	  int diffX1=abs(path->points[i].X-path->points[i-1].X);
+	  int diffY1=abs(path->points[i].Y-path->points[i-1].Y);
+	  int diffX2=abs(path->points[i].X-paths[n+1]->points[0].X);
+	  int diffY2=abs(path->points[i].Y-paths[n+1]->points[0].Y);
+   }
+}else if(n>0)
+{
+   if(i<path->points.size()-1)
+   {
+	  int diffX1=abs(path->points[i].X-paths[n-1]->points[paths[n-1]->points.size-1].X);
+	  int diffY1=abs(path->points[i].Y-paths[n-1]->points[paths[n-1]->points.size-1].Y);
+	  int diffX2=abs(path->points[i].X-path->points[i+1].X);
+	  int diffY2=abs(path->points[i].Y-path->points[i+1].Y);
+   }else if(n<paths.size()-1)
+   {
+	  int diffX1=abs(path->points[i].X-paths[n-1]->points[paths[n-1]->points.size-1].X);
+	  int diffY1=abs(path->points[i].Y-paths[n-1]->points[paths[n-1]->points.size-1].Y);
+	  int diffX2=abs(path->points[i].X-paths[n+1]->points[0].X);
+	  int diffY2=abs(path->points[i].Y-paths[n+1]->points[0].Y);
+   }
+}
+if(((diffX1<=17500)&&(diffX1>=17300))||((diffY1<=17500)&&(diffY1>=17300))||((diffX2<=17500)&&(diffX2>=17300))||((diffY2<=17500)&&(diffY2>=17300)))
+{
+	extrusionisskin=false;
+}
+if(((diffX1<=25100)&&(diffX1>=24900))||((diffY1<=25100)&&(diffY1>=24900))||((diffX2<=25100)&&(diffX2>=24900))||((diffY2<=25100)&&(diffY2>=249000)))
+{
+	extrusionisskin=true;
+}
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth,extrusionisskin);
             }
             }
