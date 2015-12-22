@@ -95,6 +95,8 @@ public:
     
     void writeMove(Point p, int speed, int lineWidth, bool isskin);
     
+    void writeint(int i);
+    
     void writeRetraction(bool force=false);
     
     void switchExtruder(int newExtruder);
