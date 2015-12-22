@@ -465,6 +465,11 @@ void GCodeExport::writeFanCommand(int speed)
     currentFanSpeed = speed;
 }
 
+void GCodeExport::writeint(int i)
+{
+   fprintf(f, "=====================%i\n",i);	
+}
+
 int GCodeExport::getFileSize(){
     return ftell(f);
 }
@@ -704,12 +709,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         {
            extrusionisskin=true;
         }
-        char s[100];
-        itoa(a173,s,10);
-        writeCode(s);
-        char q[100];
-        itoa(a25,q,10);
-        writeCode(q);
+        gcode.writeint(a173);
+        gcode.writeint(a25);
         if (extruder != path->extruder)
         {
             extruder = path->extruder;
