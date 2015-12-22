@@ -687,30 +687,8 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
     int extruder = gcode.getExtruderNr();
     for(unsigned int n=0; n<paths.size(); n++)
     {
-    	int a173=0;
-    	int a25=0;
     	bool extrusionisskin=false;
         GCodePath* path = &paths[n];
-        for(unsigned int i=1; i<path->points.size(); i++)
-        {
-           if((17300<=(path->points[i].X-path->points[i-1].X)<=17500)||(17300<=(path->points[i].Y-path->points[i-1].Y)<=17500))
-           {
-           	a173++;
-           }
-           if((24900<=(path->points[i].X-path->points[i-1].X)<=25100)||(24900<=(path->points[i].Y-path->points[i-1].Y)<=25100))
-           {
-           	a25++;
-           }
-        }
-        if(a173>=a25)
-        {
-           extrusionisskin=false;
-        }else
-        {
-           extrusionisskin=true;
-        }
-        gcode.writeint(a173);
-        gcode.writeint(a25);
         if (extruder != path->extruder)
         {
             extruder = path->extruder;
