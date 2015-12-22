@@ -777,7 +777,9 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
-            	if(path->config->name=="FILL")
+            	char* name_1 ="SKIN";
+            	char* name_2 =path->config->name;
+            	if(strcmp(name_1,name_1)==0)
             	{
             	   extrusionisskin=true;
             	}
