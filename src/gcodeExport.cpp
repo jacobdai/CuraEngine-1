@@ -802,16 +802,16 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
    if(i<path->points.size()-1)
    {
       GCodePath* path1 = &paths[n-1];
-	  diffX1=abs(path->points[i].X-path1->points[path1->points.size-1].X);
-	  diffY1=abs(path->points[i].Y-path1->points[path1->points.size-1].Y);
+	  diffX1=abs(path->points[i].X-path1->points[path1->points.size()-1].X);
+	  diffY1=abs(path->points[i].Y-path1->points[path1->points.size()-1].Y);
 	  diffX2=abs(path->points[i].X-path->points[i+1].X);
 	  diffY2=abs(path->points[i].Y-path->points[i+1].Y);
    }else if(n<paths.size()-1)
    {
       GCodePath* path1 = &paths[n-1];
 	  GCodePath* path2 = &paths[n+1];
-	  diffX1=abs(path->points[i].X-path1->points[path1->points.size-1].X);
-	  diffY1=abs(path->points[i].Y-path1->points[path1->points.size-1].Y);
+	  diffX1=abs(path->points[i].X-path1->points[path1->points.size()-1].X);
+	  diffY1=abs(path->points[i].Y-path1->points[path1->points.size()-1].Y);
 	  diffX2=abs(path->points[i].X-path2->points[0].X);
 	  diffY2=abs(path->points[i].Y-path2->points[0].Y);
    }
