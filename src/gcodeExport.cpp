@@ -777,53 +777,10 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
-            	int diffX1=0;
-            	int diffY1=0;
-            	int diffX2=0;
-            	int diffY2=0;
-            	if(i>0)
-{
-   if(i<path->points.size()-1)
-   {
-	  diffX1=abs(path->points[i].X-path->points[i-1].X);
-	  diffY1=abs(path->points[i].Y-path->points[i-1].Y);
-	  diffX2=abs(path->points[i].X-path->points[i+1].X);
-	  diffY2=abs(path->points[i].Y-path->points[i+1].Y);
-   }else if(n<paths.size()-1)
-   {
-      GCodePath* path2 = &paths[n+1];
-	  diffX1=abs(path->points[i].X-path->points[i-1].X);
-	  diffY1=abs(path->points[i].Y-path->points[i-1].Y);
-	  diffX2=abs(path->points[i].X-path2->points[0].X);
-	  diffY2=abs(path->points[i].Y-path2->points[0].Y);
-   }
-}else if(n>0)
-{
-   if(i<path->points.size()-1)
-   {
-      GCodePath* path1 = &paths[n-1];
-	  diffX1=abs(path->points[i].X-path1->points[path1->points.size()-1].X);
-	  diffY1=abs(path->points[i].Y-path1->points[path1->points.size()-1].Y);
-	  diffX2=abs(path->points[i].X-path->points[i+1].X);
-	  diffY2=abs(path->points[i].Y-path->points[i+1].Y);
-   }else if(n<paths.size()-1)
-   {
-      GCodePath* path1 = &paths[n-1];
-	  GCodePath* path2 = &paths[n+1];
-	  diffX1=abs(path->points[i].X-path1->points[path1->points.size()-1].X);
-	  diffY1=abs(path->points[i].Y-path1->points[path1->points.size()-1].Y);
-	  diffX2=abs(path->points[i].X-path2->points[0].X);
-	  diffY2=abs(path->points[i].Y-path2->points[0].Y);
-   }
-}
-if(((diffX1<=17500)&&(diffX1>=17300))||((diffY1<=17500)&&(diffY1>=17300))||((diffX2<=17500)&&(diffX2>=17300))||((diffY2<=17500)&&(diffY2>=17300)))
-{
-	extrusionisskin=false;
-}
-if(((diffX1<=25100)&&(diffX1>=24900))||((diffY1<=25100)&&(diffY1>=24900))||((diffX2<=25100)&&(diffX2>=24900))||((diffY2<=25100)&&(diffY2>=249000)))
-{
-	extrusionisskin=true;
-}
+            	if(path->config->name=="FILL")
+            	{
+            	   extrusionisskin=true;
+            	}
                 gcode.writeMove(path->points[i], speed, path->config->lineWidth,extrusionisskin);
             }
             }
