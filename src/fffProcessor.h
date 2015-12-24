@@ -447,6 +447,7 @@ private:
         int Flowadd04=0.4*(config.filamentFlow);
         int Flowadd038=0.38*(config.filamentFlow);
         int Flowadd036=0.36*(config.filamentFlow);
+        int Flowadd044=0.44*(config.filamentFlow);
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             cura::logProgress("export", layerNr+1, totalLayers);
@@ -476,14 +477,10 @@ private:
             }
 
             gcode.writeComment("LAYER:%d", layerNr);
-            if (layerNr <=2)
-                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd036);
-            else if(layerNr<=6)
-                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd036);
-            else if(layerNr==7)
-                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd036);
+            if (layerNr <=3)
+                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd038);
             else
-                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd036);
+                gcode.setExtrusion(config.initialLayerThickness, config.filamentDiameter, Flowadd044);
             /*else if(layerNr==1)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd2);
             else if(layerNr==2)
