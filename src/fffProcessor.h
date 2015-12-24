@@ -448,7 +448,7 @@ private:
         int Flowadd038=0.38*(config.filamentFlow);
         int Flowadd036=0.36*(config.filamentFlow);
         int Flowadd044=0.44*(config.filamentFlow);
-        int Flowadd044=0.46*(config.filamentFlow);
+        int Flowadd046=0.46*(config.filamentFlow);
         for(unsigned int layerNr=0; layerNr<totalLayers; layerNr++)
         {
             cura::logProgress("export", layerNr+1, totalLayers);
