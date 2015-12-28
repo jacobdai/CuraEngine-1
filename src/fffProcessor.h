@@ -493,7 +493,7 @@ private:
             else if(layerNr==13||layerNr==14||layerNr==15)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd4); 
             else
-                gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);*/
+                gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
 
             GCodePlanner gcodeLayer(gcode, config.moveSpeed, config.retractionMinimalDistance);
             int32_t z = config.initialLayerThickness + layerNr * config.layerThickness;
