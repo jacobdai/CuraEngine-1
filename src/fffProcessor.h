@@ -490,7 +490,7 @@ private:
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd2);
             else if(layerNr==2)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
-            else if(layerNr==13||layerNr==14||layerNr==15)
+            else if(layerNr==7||layerNr==8||layerNr==9)
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd4); 
             else
                 gcode.setExtrusion(config.layerThickness, config.filamentDiameter, Flowadd3);
@@ -664,7 +664,7 @@ private:
                 int lsp=1.1*extrusionWidth;
                 int lsp13=extrusionWidth;
                 int lspother=1.16*extrusionWidth;
-                if(layerNr==28||layerNr==29||layerNr==30||layerNr==31)
+                if(layerNr==7||layerNr==8||layerNr==9||layerNr==10)
                 {
                     generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
                 }else
