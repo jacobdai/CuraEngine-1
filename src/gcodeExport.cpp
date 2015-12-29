@@ -770,16 +770,16 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
         	
             for(unsigned int i=0; i<path->points.size(); i++)
             {
-            	double extruad=1.0;
-            	double extruadd=1.55;
-            	/*if(strcmp("FILL",path->config->name)==0)
+            	double extruad=1.1;
+            	double extruadd=0.9;
+            	if(strcmp("FILL",path->config->name)==0)
             	{
             	   gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruadd);
             	}else
             	{
             	   gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruad);	
-            	}*/
-            	gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruad);
+            	}
+            	//gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruad);
             }
             }
         }
