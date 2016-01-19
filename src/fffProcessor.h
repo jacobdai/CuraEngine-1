@@ -664,13 +664,7 @@ private:
                 int lsp=1.1*extrusionWidth;
                 int lsp13=extrusionWidth;
                 int lspother=1.16*extrusionWidth;
-                if(layerNr==7||layerNr==8||layerNr==9||layerNr==10)
-                {
-                    generateLineInfill(outline, skinPolygons, extrusionWidth, lsp13, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
-                }else
-                {
                     generateLineInfill(outline, skinPolygons, extrusionWidth, lspother, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
-                }
             }
             if (config.enableCombing == COMBING_NOSKIN)
             {
