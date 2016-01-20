@@ -434,7 +434,7 @@ private:
         }
 
         int volumeIdx = 0;
-        int Flowadd2=1.2*(config.filamentFlow);
+        int Flowadd2=1.1*(config.filamentFlow);
         int Flowadd3=1.5*(config.filamentFlow);
         int Flowadd4=1.8*(config.filamentFlow);
         int Flowadd5=0.5*(config.filamentFlow);
