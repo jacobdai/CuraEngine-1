@@ -771,7 +771,7 @@ void GCodePlanner::writeGCode(bool liftHeadIfNeeded, int layerThickness)
             for(unsigned int i=0; i<path->points.size(); i++)
             {
             	double extruad=0.7;
-            	double extruadd=0.85;
+            	double extruadd=1;
             	if(strcmp("FILL",path->config->name)==0)
             	{
             	   gcode.writeMove(path->points[i], speed, path->config->lineWidth,extruadd);
